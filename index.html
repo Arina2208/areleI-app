@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>ARELEI · Умный гардероб</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=1.0, viewport-fit=cover" />
   <style>
     :root {
       --bg: #f3f4ff;
@@ -13,9 +13,9 @@
       --text-main: #111827;
       --text-muted: #6b7280;
       --border-soft: #e5e7eb;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.12);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.14);
     }
 
     * {
@@ -40,74 +40,74 @@
     .app {
       position: relative;
       width: 100%;
-      max-width: 480px;
+      max-width: 430px;
       height: 100vh;
       background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 40%, #f3f4ff 100%);
       display: flex;
       flex-direction: column;
-      padding: env(safe-area-inset-top) 12px calc(70px + env(safe-area-inset-bottom)) 12px;
+      padding: env(safe-area-inset-top) 10px calc(64px + env(safe-area-inset-bottom)) 10px;
     }
 
     header {
-      padding: 10px 4px 6px;
+      padding: 8px 2px 4px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .logo-circle {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
       background: conic-gradient(from 160deg, #6366f1, #ec4899, #f97316, #6366f1);
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-weight: 800;
-      font-size: 18px;
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+      font-size: 16px;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
     }
 
     .brand-title {
       font-weight: 700;
-      font-size: 17px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
     .brand-title span.emoji {
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .brand-sub {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
     }
 
     .user-chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 9px;
+      gap: 5px;
+      padding: 5px 8px;
       border-radius: 999px;
       background: #ffffff;
       border: 1px solid var(--border-soft);
-      font-size: 11px;
-      box-shadow: 0 4px 10px rgba(148, 163, 184, 0.3);
+      font-size: 10px;
+      box-shadow: 0 3px 8px rgba(148, 163, 184, 0.3);
     }
 
     .user-avatar {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: linear-gradient(135deg, #6366f1, #ec4899);
       color: white;
@@ -115,29 +115,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .user-name {
       font-weight: 500;
+      font-size: 11px;
     }
 
     .user-tag {
       color: var(--text-muted);
-      font-size: 10px;
+      font-size: 9px;
     }
 
     .pro-badge {
-      margin: 0 4px 8px;
+      margin: 0 4px 6px;
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 10px;
+      padding: 5px 9px;
       border-radius: 999px;
       background: #eef2ff;
       color: #4f46e5;
-      font-size: 11px;
-      box-shadow: 0 4px 10px rgba(129, 140, 248, 0.35);
+      font-size: 10px;
+      box-shadow: 0 3px 10px rgba(129, 140, 248, 0.35);
     }
 
     .pro-dot {
@@ -145,7 +146,7 @@
       height: 7px;
       border-radius: 50%;
       background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.22);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
     }
 
     /* CONTENT */
@@ -153,9 +154,10 @@
     #tab-content {
       flex: 1;
       overflow-y: auto;
-      padding: 0 2px 8px;
+      padding: 0 1px 6px;
       scrollbar-width: thin;
       scrollbar-color: #d1d5db transparent;
+      font-size: 13px;
     }
 
     #tab-content::-webkit-scrollbar {
@@ -170,70 +172,70 @@
     .card {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
-      padding: 12px 12px 14px;
+      padding: 10px 10px 12px;
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .card-header {
       display: flex;
       justify-content: space-between;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .card-title {
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .card-title span.emoji {
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .card-sub {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .pill {
       border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 10px;
+      padding: 2px 7px;
+      font-size: 9px;
       background: #eef2ff;
       color: #4f46e5;
       white-space: nowrap;
     }
 
     .section-title-small {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      margin-top: 6px;
-      margin-bottom: 4px;
+      margin-top: 5px;
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
     .section-title-small span {
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      margin: 4px 0 4px;
+      gap: 5px;
+      margin: 3px 0 3px;
     }
 
     .stat {
-      padding: 7px 8px;
-      border-radius: 12px;
+      padding: 6px 7px;
+      border-radius: 11px;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       display: flex;
@@ -242,23 +244,23 @@
     }
 
     .stat-label {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
     }
 
     .stat-value {
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .stat-chip {
-      font-size: 10px;
+      font-size: 9px;
       color: #22c55e;
     }
 
     .ai-block {
-      margin-top: 6px;
-      padding: 8px 9px;
+      margin-top: 5px;
+      padding: 7px 8px;
       border-radius: var(--radius-md);
       background: #f9fafb;
       border: 1px dashed #e5e7eb;
@@ -266,40 +268,41 @@
     }
 
     .ai-label {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .ai-title {
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      font-size: 12px;
     }
 
     .ai-title span.icon {
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .ai-text {
       font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 4px;
-      line-height: 1.4;
+      margin-bottom: 3px;
+      line-height: 1.35;
     }
 
     .ai-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 2px;
+      gap: 3px;
+      margin-top: 1px;
     }
 
     .ai-tag {
       border-radius: 999px;
-      padding: 2px 6px;
+      padding: 2px 5px;
       font-size: 9px;
       background: #eef2ff;
       color: #4f46e5;
@@ -311,16 +314,16 @@
     }
 
     .calendar {
-      margin-top: 4px;
+      margin-top: 3px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
+      gap: 5px;
       font-size: 10px;
     }
 
     .calendar-day {
-      padding: 6px;
-      border-radius: 12px;
+      padding: 5px;
+      border-radius: 11px;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
     }
@@ -328,19 +331,19 @@
     .calendar-day-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
       font-weight: 500;
       font-size: 11px;
     }
 
     .calendar-day-outfit {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
 
     .pill-weather {
-      font-size: 10px;
-      padding: 2px 6px;
+      font-size: 9px;
+      padding: 1px 5px;
       border-radius: 999px;
       background: #e0f2fe;
       color: #0369a1;
@@ -349,12 +352,12 @@
     .btn {
       border-radius: 999px;
       border: none;
-      padding: 7px 11px;
-      font-size: 11px;
+      padding: 6px 10px;
+      font-size: 10px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       transition: 0.15s ease;
       white-space: nowrap;
     }
@@ -362,12 +365,12 @@
     .btn-primary {
       background: linear-gradient(135deg, #6366f1, #ec4899);
       color: white;
-      box-shadow: 0 8px 18px rgba(99, 102, 241, 0.45);
+      box-shadow: 0 6px 14px rgba(99, 102, 241, 0.45);
     }
 
     .btn-primary:active {
       transform: scale(0.97);
-      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.6);
+      box-shadow: 0 3px 8px rgba(99, 102, 241, 0.6);
     }
 
     .btn-ghost {
@@ -387,13 +390,13 @@
     }
 
     .btn-sm {
-      padding: 6px 10px;
-      font-size: 11px;
+      padding: 5px 9px;
+      font-size: 10px;
     }
 
     .notes {
-      margin-top: 5px;
-      font-size: 10px;
+      margin-top: 4px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
 
@@ -407,25 +410,32 @@
     .clothes-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
+      gap: 5px;
+      margin-top: 3px;
     }
 
     .clothes-item {
-      border-radius: 14px;
-      padding: 6px 7px;
+      border-radius: 13px;
+      padding: 5px 6px;
       font-size: 11px;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      cursor: pointer;
+      transition: background 0.12s ease, transform 0.08s ease;
+    }
+
+    .clothes-item:active {
+      transform: scale(0.99);
+      background: #eef2ff;
     }
 
     .item-image {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
       object-fit: cover;
       background: #e5e7eb;
       flex-shrink: 0;
@@ -435,25 +445,25 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
 
     .clothes-name {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 500;
     }
 
     .small-muted {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       font-size: 9px;
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 999px;
       background: #ecfdf5;
       color: #16a34a;
@@ -467,7 +477,7 @@
 
     .chip {
       border-radius: 999px;
-      padding: 2px 6px;
+      padding: 2px 5px;
       font-size: 9px;
       background: #eff6ff;
       color: #1d4ed8;
@@ -476,13 +486,13 @@
     .pro-section {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
+      gap: 5px;
+      margin-top: 3px;
     }
 
     .pro-item {
-      border-radius: 12px;
-      padding: 7px 8px;
+      border-radius: 11px;
+      padding: 6px 7px;
       background: #fdf2ff;
       border: 1px solid #f5d0fe;
       font-size: 11px;
@@ -491,21 +501,21 @@
     .pro-item-header {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 2px;
     }
 
     .pro-item-title {
       font-weight: 600;
-      font-size: 12px;
+      font-size: 11.5px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
     .pro-item-label {
-      font-size: 9px;
-      padding: 2px 6px;
+      font-size: 8.5px;
+      padding: 2px 5px;
       border-radius: 999px;
       background: #f3e8ff;
       color: #6d28d9;
@@ -513,21 +523,21 @@
     }
 
     .pro-item-text {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
 
     .discounts {
-      margin-top: 4px;
+      margin-top: 3px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       font-size: 10px;
     }
 
     .discount-card {
-      border-radius: 12px;
-      padding: 7px 8px;
+      border-radius: 11px;
+      padding: 6px 7px;
       background: #ecfeff;
       border: 1px solid #a5f3fc;
       display: flex;
@@ -543,10 +553,11 @@
 
     .discount-info {
       color: #0f766e;
+      font-size: 9.5px;
     }
 
     .badge-new {
-      font-size: 9px;
+      font-size: 8.5px;
       padding: 2px 5px;
       border-radius: 999px;
       background: #022c22;
@@ -556,14 +567,14 @@
     .inputs-row {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
-      margin-bottom: 6px;
+      gap: 5px;
+      margin-top: 3px;
+      margin-bottom: 5px;
     }
 
     label {
       display: block;
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
       margin-bottom: 2px;
     }
@@ -571,10 +582,10 @@
     select,
     input[type="text"] {
       width: 100%;
-      padding: 7px 8px;
-      border-radius: 9px;
+      padding: 6px 7px;
+      border-radius: 8px;
       border: 1px solid #e5e7eb;
-      font-size: 11px;
+      font-size: 10.5px;
       outline: none;
       background: #ffffff;
       color: var(--text-main);
@@ -594,15 +605,15 @@
       transform: translateX(-50%);
       bottom: env(safe-area-inset-bottom);
       width: 100%;
-      max-width: 480px;
-      padding: 6px 14px 8px;
+      max-width: 430px;
+      padding: 5px 12px 7px;
       background: #ffffff;
       border-top: 1px solid #e5e7eb;
       display: flex;
       justify-content: space-between;
-      gap: 6px;
+      gap: 5px;
       z-index: 10;
-      box-shadow: 0 -4px 12px rgba(148, 163, 184, 0.25);
+      box-shadow: 0 -3px 10px rgba(148, 163, 184, 0.25);
     }
 
     .tab-btn {
@@ -611,31 +622,31 @@
       outline: none;
       background: transparent;
       color: var(--text-muted);
-      font-size: 10px;
-      padding: 4px 0 2px;
+      font-size: 9.5px;
+      padding: 4px 0 1px;
       border-radius: 999px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
       transition: 0.15s ease;
     }
 
     .tab-btn span.icon {
-      font-size: 19px;
+      font-size: 18px;
     }
 
     .tab-btn.active {
       background: #eef2ff;
       color: #4f46e5;
-      box-shadow: 0 4px 10px rgba(129, 140, 248, 0.4);
+      box-shadow: 0 3px 8px rgba(129, 140, 248, 0.4);
     }
 
     .tab-btn.pro-btn::after {
       content: "PRO";
-      font-size: 8px;
-      padding: 1px 5px;
+      font-size: 7.5px;
+      padding: 1px 4px;
       border-radius: 999px;
       background: #f97316;
       color: white;
@@ -843,7 +854,7 @@
             </div>
           </div>
 
-          <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="setActiveTab('stylist')">
               Подобрать ещё образ ✨
             </button>
@@ -884,10 +895,10 @@
     }
 
     function renderWardrobe() {
-      const itemsHtml = state.clothes.map(c => {
+      const itemsHtml = state.clothes.map((c, index) => {
         const rare = c.usage === "редко";
         return `
-          <div class="clothes-item">
+          <div class="clothes-item" data-index="${index}">
             <img class="item-image" src="${c.img}" alt="${c.name}" />
             <div class="clothes-main">
               <div class="clothes-name">${c.name}</div>
@@ -910,7 +921,7 @@
               <div class="card-title">
                 <span class="emoji">👚</span> Мой цифровой гардероб
               </div>
-              <div class="card-sub">Все вещи из шкафа — в удобном списке</div>
+              <div class="card-sub">Тапни по вещи, чтобы посмотреть детали</div>
             </div>
             <span class="pill">добавление через камеру 📸</span>
           </div>
@@ -923,6 +934,30 @@
           </div>
         </div>
       `;
+
+      // делаем вещи кликабельными
+      document.querySelectorAll(".clothes-item").forEach(el => {
+        el.addEventListener("click", () => {
+          const index = Number(el.getAttribute("data-index"));
+          showItemDetails(index);
+        });
+      });
+    }
+
+    function showItemDetails(index) {
+      const item = state.clothes[index];
+      const message =
+        "Вещь: " + item.name + "\n" +
+        "Тип: " + item.type + "\n" +
+        "Сезон: " + item.season + "\n" +
+        "Частота носки: " + item.usage + "\n" +
+        "Теги: " + item.tags.join(", ") + "\n\n" +
+        "Идея от ARELEI:\n" +
+        (item.usage === "редко"
+          ? "Эта вещь почти не используется. Можно встроить её в образ через стилиста или подумать о продаже/обмене ♻️"
+          : "Эта вещь — часть базового гардероба. ARELEI будет часто использовать её в образах 💚");
+
+      alert(message);
     }
 
     function renderAR() {
@@ -938,11 +973,11 @@
             <span class="pill">демо AR</span>
           </div>
 
-          <div style="border-radius:16px;border:1px dashed #c7d2fe;padding:10px;background:#eef2ff;margin-bottom:8px;display:flex;gap:10px;align-items:center;">
-            <div style="flex:0 0 70px;height:70px;border-radius:16px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:32px;">
+          <div style="border-radius:14px;border:1px dashed #c7d2fe;padding:8px;background:#eef2ff;margin-bottom:6px;display:flex;gap:8px;align-items:center;">
+            <div style="flex:0 0 64px;height:64px;border-radius:14px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:30px;">
               🧍‍♀️
             </div>
-            <div style="flex:1;font-size:11px;color:var(--text-muted);">
+            <div style="flex:1;font-size:10.5px;color:var(--text-muted);">
               Здесь в живой версии будет камера и твоя 3D-модель.  
               Сейчас можно показать, как это будет работать, через демо-сообщение.
             </div>
@@ -1048,7 +1083,7 @@
             Подобрать образ ✨
           </button>
 
-          <div id="aiResult" class="ai-block" style="margin-top:6px;">
+          <div id="aiResult" class="ai-block" style="margin-top:5px;">
             <div class="ai-label">Пример</div>
             <div class="ai-title">
               <span class="icon">✨</span>
@@ -1109,7 +1144,7 @@
             </div>
           </div>
 
-          <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">
             <button class="btn btn-pro btn-sm" onclick="togglePro()">
               ${state.isProActive ? "PRO активен ✅" : "Включить PRO (демо)"}
             </button>
@@ -1229,12 +1264,12 @@
             </div>
           </div>
 
-          <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+          <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="togglePro()">
               ${state.isProActive ? "PRO активен ✅" : "Включить PRO-режим (демо)"}
             </button>
             <button class="btn btn-ghost btn-sm" onclick="setActiveTab('dashboard')">
-              Назад на главную
+              На главную
             </button>
           </div>
 
