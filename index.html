@@ -3,18 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>ARELEI · Умный гардероб</title>
-  <!-- чуть уменьшаем масштаб, чтобы всё выглядело компактнее как приложение -->
   <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=1.0, viewport-fit=cover" />
-  <style> .ar-video {
-  width: 100%;
-  border-radius: 14px;
-  background: #000;
-  max-height: 260px;
-  object-fit: cover;
-}
-
+  <style>
     :root {
-      /* НОВАЯ БЕЖЕВАЯ ПАЛИТРА */
       --bg: #f5f0e9;
       --card-bg: #fffaf4;
       --primary: #c26a3d;
@@ -41,26 +32,27 @@
       color: var(--text-main);
     }
 
-   body {
-  display: flex;
-  justify-content: center;
-  align-items: center;   /* вместо stretch */
-  background: var(--bg);
-}
-
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg);
+    }
 
     .app {
-  position: relative;
-  width: 100%;
-  max-width: 400px;   /* чтобы влезало в 375–400px */
-  height: 800px;      /* фиксированная высота под макет */
-  max-height: 800px;
-  background: radial-gradient(circle at top left, #fff4e2 0%, #f5f0e9 40%, #f0e4d8 100%);
-  display: flex;
-  flex-direction: column;
-  padding: env(safe-area-inset-top) 10px calc(66px + env(safe-area-inset-bottom)) 10px;
-}
-
+      position: relative;
+      width: 100%;
+      max-width: 400px;   /* под 375–400 px */
+      height: 800px;      /* фиксированная высота макета */
+      max-height: 800px;
+      background: radial-gradient(circle at top left, #fff4e2 0%, #f5f0e9 40%, #f0e4d8 100%);
+      display: flex;
+      flex-direction: column;
+      padding: env(safe-area-inset-top) 10px calc(66px + env(safe-area-inset-bottom)) 10px;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(63, 47, 38, 0.4);
+      overflow: hidden;
+    }
 
     header {
       padding: 8px 2px 4px;
@@ -162,8 +154,6 @@
       background: #3bb073;
       box-shadow: 0 0 0 3px rgba(59, 176, 115, 0.25);
     }
-
-    /* CONTENT */
 
     #tab-content {
       flex: 1;
@@ -322,11 +312,6 @@
       color: #a45a33;
     }
 
-    .ai-tag.pro {
-      background: #fdf1ff;
-      color: #9444a1;
-    }
-
     .calendar {
       margin-top: 3px;
       display: grid;
@@ -425,8 +410,6 @@
       color: #3bb073;
       font-weight: 500;
     }
-
-    /* CLOTHES LIST */
 
     .clothes-list {
       display: flex;
@@ -632,15 +615,19 @@
       box-shadow: 0 0 0 1px #f0d2ac;
     }
 
-    /* BOTTOM NAV */
+    .ar-video {
+      width: 100%;
+      border-radius: 14px;
+      background: #000;
+      max-height: 260px;
+      object-fit: cover;
+    }
 
     .bottom-nav {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: env(safe-area-inset-bottom);
-      width: 100%;
-      max-width: 414px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
       padding: 5px 12px 7px;
       background: #fff7ee;
       border-top: 1px solid #e3d6c8;
@@ -716,29 +703,29 @@
     </div>
 
     <div id="tab-content"></div>
-  </div>
 
-  <div class="bottom-nav">
-    <button class="tab-btn active" data-tab="dashboard">
-      <span class="icon">🏠</span>
-      <span>Главная</span>
-    </button>
-    <button class="tab-btn" data-tab="wardrobe">
-      <span class="icon">👚</span>
-      <span>Гардероб</span>
-    </button>
-    <button class="tab-btn" data-tab="ar">
-      <span class="icon">📱</span>
-      <span>AR</span>
-    </button>
-    <button class="tab-btn" data-tab="stylist">
-      <span class="icon">🤖</span>
-      <span>Стилист</span>
-    </button>
-    <button class="tab-btn pro-btn" data-tab="pro">
-      <span class="icon">💎</span>
-      <span>PRO</span>
-    </button>
+    <div class="bottom-nav">
+      <button class="tab-btn active" data-tab="dashboard">
+        <span class="icon">🏠</span>
+        <span>Главная</span>
+      </button>
+      <button class="tab-btn" data-tab="wardrobe">
+        <span class="icon">👚</span>
+        <span>Гардероб</span>
+      </button>
+      <button class="tab-btn" data-tab="ar">
+        <span class="icon">📱</span>
+        <span>AR</span>
+      </button>
+      <button class="tab-btn" data-tab="stylist">
+        <span class="icon">🤖</span>
+        <span>Стилист</span>
+      </button>
+      <button class="tab-btn pro-btn" data-tab="pro">
+        <span class="icon">💎</span>
+        <span>PRO</span>
+      </button>
+    </div>
   </div>
 
   <script>
@@ -809,6 +796,8 @@
       ]
     };
 
+    let arStream = null;
+
     function $(sel) {
       return document.querySelector(sel);
     }
@@ -844,7 +833,7 @@
               </div>
               <div class="card-sub">Все вещи, образы, стилист и примерка — в одном месте</div>
             </div>
-            <span class="pill">демо-версия проекта</span>
+            <span class="pill">готовый прототип</span>
           </div>
 
           <div class="stats-row">
@@ -867,8 +856,8 @@
             </div>
             <div class="stat">
               <div class="stat-label">AR-примерка</div>
-              <div class="stat-value">готова</div>
-              <div class="stat-chip">можно показать учителю 📱</div>
+              <div class="stat-value">включена</div>
+              <div class="stat-chip">камера работает 📱</div>
             </div>
           </div>
 
@@ -929,7 +918,6 @@
         </div>
       `;
 
-      // кликабельные дни недели
       document.querySelectorAll(".calendar-day").forEach(el => {
         el.addEventListener("click", () => {
           const idx = Number(el.getAttribute("data-index"));
@@ -938,7 +926,7 @@
             d.day + " · " + d.event + "\n\n" +
             "Погода: " + d.weather + "\n" +
             "Предложенный образ:\n" + d.outfit +
-            "\n\nARELEI подбирает такие образы автоматически по погоде и расписанию 🌤"
+            "\n\nARELEI автоматически планирует образы по погоде и расписанию 🌤"
           );
         });
       });
@@ -1012,116 +1000,117 @@
 
     /* ---------- AR ---------- */
 
-   function renderAR() {
-  $("#tab-content").innerHTML = `
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">
-            <span class="emoji">📱</span> AR-примерка
-          </div>
-          <div class="card-sub">Живая камера + оверлей одежды</div>
-        </div>
-        <span class="pill">камера включается по запросу</span>
-      </div>
-
-      <video id="arCamera" class="ar-video" autoplay playsinline muted></video>
-
-      <div class="notes">
-        В реальном приложении поверх видео будет 3D-модель одежды.
-        Сейчас — основа: камера включается и показывает тебя в реальном времени.
-      </div>
-
-      <button class="btn btn-primary btn-sm" style="margin-top:5px;" onclick="startCamera()">
-        Включить камеру 🔓
-      </button>
-      <button class="btn btn-ghost btn-sm" style="margin-top:5px;" onclick="stopCamera()">
-        Выключить камеру 🚫
-      </button>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">
-            <span class="emoji">🛍️</span> Покупки через маркетплейсы
-          </div>
-          <div class="card-sub">Примерил → понравилось → купил</div>
-        </div>
-      </div>
-
-      <div class="discounts">
-        ${state.discounts.map((d, i) => `
-          <div class="discount-card" data-discount="${i}">
+    function renderAR() {
+      $("#tab-content").innerHTML = `
+        <div class="card">
+          <div class="card-header">
             <div>
-              <div class="discount-brand">${d.brand}</div>
-              <div class="discount-info">${d.offer}</div>
-              <div class="small-muted">${d.note}</div>
+              <div class="card-title">
+                <span class="emoji">📱</span> AR-примерка
+              </div>
+              <div class="card-sub">Живая камера + оверлей одежды</div>
             </div>
-            <span class="badge-new">перейти</span>
+            <span class="pill">камера включается по запросу</span>
           </div>
-        `).join("")}
-      </div>
 
-      <div class="notes">
-        В боевой версии ARELEI будет открывать карточку товара на OZON / Wildberries
-        и добавлять купленную вещь в гардероб автоматически.
-      </div>
-    </div>
-  `;
+          <video id="arCamera" class="ar-video" autoplay playsinline muted></video>
 
-  // обработка клика по скидкам
-  document.querySelectorAll(".discount-card").forEach(el => {
-    el.addEventListener("click", () => {
-      const idx = Number(el.getAttribute("data-discount"));
-      const d = state.discounts[idx];
-      alert(
-        "Партнёрская ссылка (демо):\n\n" +
-        d.brand + "\n" +
-        d.offer + "\n\n" +
-        "В реальном приложении ARELEI откроет этот товар в приложении маркетплейса и запишет покупку в гардероб 🛍️"
-      );
-    });
-  });
-}
+          <div class="notes">
+            В реальном приложении поверх видео будет 3D-модель одежды.
+            Сейчас — основа: камера включается и показывает тебя в реальном времени.
+          </div>
 
+          <button class="btn btn-primary btn-sm" style="margin-top:5px;" onclick="startCamera()">
+            Включить камеру 🔓
+          </button>
+          <button class="btn btn-ghost btn-sm" style="margin-top:5px;" onclick="stopCamera()">
+            Выключить камеру 🚫
+          </button>
+        </div>
 
-    function simulateTryOn() {
-      alert(
-        "Демо AR-примерки:\n\n" +
-        "• выбрана вещь: «Чёрный жакет oversize» 🧥\n" +
-        "• рекомендованный размер: S (по твоей 3D-модели)\n" +
-        "• посадка: свободная, линия плеч чуть шире, длина до середины бедра.\n\n" +
-        "В реальном приложении ты видишь это на себе через камеру телефона 📱✨"
-      );
-    }let arStream = null;
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span class="emoji">🛍️</span> Покупки через маркетплейсы
+              </div>
+              <div class="card-sub">Примерил → понравилось → купил</div>
+            </div>
+          </div>
 
-async function startCamera() {
-  try {
-    const video = document.getElementById("arCamera");
-    if (!video) return;
+          <div class="discounts">
+            ${state.discounts.map((d, i) => `
+              <div class="discount-card" data-discount="${i}">
+                <div>
+                  <div class="discount-brand">${d.brand}</div>
+                  <div class="discount-info">${d.offer}</div>
+                  <div class="small-muted">${d.note}</div>
+                </div>
+                <span class="badge-new">перейти</span>
+              </div>
+            `).join("")}
+          </div>
 
-    // просим у браузера доступ к камере
-    arStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "environment" } // основная (задняя) камера
-    });
+          <div class="notes">
+            В боевой версии ARELEI будет открывать карточку товара на OZON / Wildberries
+            и добавлять купленную вещь в гардероб автоматически.
+          </div>
+        </div>
+      `;
 
-    video.srcObject = arStream;
-  } catch (e) {
-    alert("Не получилось включить камеру. Проверь разрешения браузера 📵");
-    console.error(e);
-  }
-}
+      document.querySelectorAll(".discount-card").forEach(el => {
+        el.addEventListener("click", () => {
+          const idx = Number(el.getAttribute("data-discount"));
+          const d = state.discounts[idx];
+          alert(
+            "Партнёрская ссылка (демо):\n\n" +
+            d.brand + "\n" +
+            d.offer + "\n\n" +
+            "В реальном приложении ARELEI откроет этот товар в приложении маркетплейса и запишет покупку в гардероб 🛍️"
+          );
+        });
+      });
+    }
 
-function stopCamera() {
-  if (arStream) {
-    arStream.getTracks().forEach(t => t.stop());
-    arStream = null;
-  }
-}
+    async function startCamera() {
+      try {
+        const video = document.getElementById("arCamera");
+        if (!video) return;
 
+        arStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" }
+        });
+
+        video.srcObject = arStream;
+      } catch (e) {
+        alert("Не получилось включить камеру. Проверь разрешения браузера 📵");
+        console.error(e);
+      }
+    }
+
+    function stopCamera() {
+      if (arStream) {
+        arStream.getTracks().forEach(t => t.stop());
+        arStream = null;
+      }
+    }
 
     /* ---------- СТИЛИСТ ---------- */
+
+    async function callAIStylistBackend(prompt) {
+      // Заготовка под настоящий backend с ИИ.
+      // Когда появится сервер, сюда можно добавить реальный запрос.
+      throw new Error("backend not configured");
+      /*
+      const response = await fetch("https://ТВОЙ-БЭКЕНД/stylist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await response.json();
+      return data.answer;
+      */
+    }
 
     function renderStylist() {
       $("#tab-content").innerHTML = `
@@ -1225,16 +1214,15 @@ function stopCamera() {
 
           <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">
             <button class="btn btn-pro btn-sm" onclick="openProPayment()">
-  Оформить PRO в Telegram 💳
-</button>
+              Оформить PRO в Telegram 💳
+            </button>
             <span class="notes">
-              В проекте ARELEI эти функции входят в платную подписку.
+              В реальной версии оплата и активация PRO проходят через Telegram-бота.
             </span>
           </div>
         </div>
       `;
 
-      // кликабельные карточки PRO
       document.querySelectorAll(".pro-item").forEach(el => {
         el.addEventListener("click", () => {
           const type = el.getAttribute("data-pro");
@@ -1251,91 +1239,67 @@ function stopCamera() {
       });
     }
 
-    function generateOutfit()async function generateOutfit() {
-  const event = document.getElementById("eventSelect").value;
-  const weather = document.getElementById("weatherSelect").value;
-  const styleWish = document.getElementById("styleInput").value.trim();
-
-  const result = $("#aiResult");
-
-  // маленький «лоадер», чтобы выглядело как ИИ
-  result.innerHTML = `
-    <div class="ai-label">ИИ-стилист думает...</div>
-    <div class="ai-title">
-      <span class="icon">⏳</span>
-      Генерация образа
-    </div>
-    <div class="ai-text">Подбираю вещи под твой запрос...</div>
-  `;
-
-  // 1) формируем текстовый запрос к ИИ
-  const prompt =
-    "Подбери образ из базового гардероба для события: " + event +
-    ", погода: " + weather +
-    ", стиль: " + (styleWish || "не указан") +
-    ". Гардероб: белая рубашка, синие джинсы, чёрный жакет oversize, лиловое платье, белые кроссовки. " +
-    "Ответь коротко на русском, в 2-3 предложениях, без списков.";
-
-  let text = "";
-  let tags = [];
-
-  try {
-    // 2) если есть backend — можно раскомментировать этот вызов
-    // text = await callAIStylistBackend(prompt);
-    // tags = ["ИИ-ответ"];
-
-    // ❗ Пока backend не подключён — используем прежнюю «умную» логику:
-    throw new Error("no-backend-yet");
-  } catch (e) {
-    // FALLBACK: старая логика для проекта
-    if (event === "school") {
-      if (weather === "cool") {
-        text = "Для школы и прохладной погоды: белая рубашка, синие джинсы, белые кроссовки и чёрный жакет oversize. " +
-               "Сумка — спокойная, без кричащих принтов.";
-        tags = ["школа", "слоистость", "комфорт"];
-      } else if (weather === "warm") {
-        text = "Тёплая погода и школа: белая рубашка, джинсы прямого кроя, лёгкая обувь без жакета. " +
-               "Можно добавить тонкий ремень.";
-        tags = ["минимализм", "база"];
-      } else {
-        text = "Жарко и нужен дресс-код: светлая хлопковая рубашка или платье в сдержанных тонах, минимум слоёв и лёгкая обувь.";
-        tags = ["жара", "натуральные ткани"];
-      }
-    } else if (event === "walk") {
-      text = "Для прогулки: свободный свитшот или футболка, прямые джинсы и кроссовки. Можно добавить кепку и маленький рюкзак.";
-      tags = ["casual", "комфорт", "повседневный"];
-    } else if (event === "party") {
-      text = "На вечеринку: лиловое платье-комбинация, чёрный жакет oversize, аккуратная обувь и небольшая сумка. Украшения — по настроению.";
-      tags = ["вечеринка", "акцент на платье"];
-    } else if (event === "date") {
-      text = "На свидание: мягкий свитер пастельного оттенка, джинсы или юбка, аккуратная обувь и лёгкие украшения. Образ — нежный и комфортный.";
-      tags = ["романтика", "мягкие оттенки"];
-    } else if (event === "study") {
-      text = "Для репетитора / учёбы: удобные джинсы или брюки, простой верх (футболка/рубашка), удобная обувь и минимум отвлекающих деталей.";
-      tags = ["фокус на учёбе", "минимум отвлечения"];
-    }
-  }
-
-  if (styleWish) {
-    text += " Я учитываю твоё пожелание по стилю: «" + styleWish + "».";
-    tags.push(styleWish);
-  }
-
-  result.innerHTML = `
-    <div class="ai-label">Рекомендация ИИ-стилиста ARELEI</div>
-    <div class="ai-title">
-      <span class="icon">✨</span>
-      Образ на сегодня
-    </div>
-    <div class="ai-text">${text}</div>
-    <div class="ai-tags">
-      ${tags.map(t => `<span class="ai-tag">${t}</span>`).join("")}
-    </div>
-  `;
-}
-
-
+    async function generateOutfit() {
+      const event = document.getElementById("eventSelect").value;
+      const weather = document.getElementById("weatherSelect").value;
+      const styleWish = document.getElementById("styleInput").value.trim();
       const result = $("#aiResult");
+
+      result.innerHTML = `
+        <div class="ai-label">ИИ-стилист думает...</div>
+        <div class="ai-title">
+          <span class="icon">⏳</span>
+          Генерация образа
+        </div>
+        <div class="ai-text">Подбираю вещи под твой запрос...</div>
+      `;
+
+      const prompt =
+        "Подбери образ из базового гардероба для события: " + event +
+        ", погода: " + weather +
+        ", стиль: " + (styleWish || "не указан") +
+        ". Гардероб: белая рубашка, синие джинсы, чёрный жакет oversize, лиловое платье, белые кроссовки. " +
+        "Ответь коротко на русском, в 2-3 предложениях, без списков.";
+
+      let text = "";
+      let tags = [];
+
+      try {
+        await callAIStylistBackend(prompt);
+      } catch (e) {
+        if (event === "school") {
+          if (weather === "cool") {
+            text = "Для школы и прохладной погоды: белая рубашка, синие джинсы, белые кроссовки и чёрный жакет oversize. " +
+                   "Сумка — спокойная, без кричащих принтов.";
+            tags = ["школа", "слоистость", "комфорт"];
+          } else if (weather === "warm") {
+            text = "Тёплая погода и школа: белая рубашка, джинсы прямого кроя, лёгкая обувь без жакета. " +
+                   "Можно добавить тонкий ремень.";
+            tags = ["минимализм", "база"];
+          } else {
+            text = "Жарко и нужен дресс-код: светлая хлопковая рубашка или платье в сдержанных тонах, минимум слоёв и лёгкая обувь.";
+            tags = ["жара", "натуральные ткани"];
+          }
+        } else if (event === "walk") {
+          text = "Для прогулки: свободный свитшот или футболка, прямые джинсы и кроссовки. Можно добавить кепку и маленький рюкзак.";
+          tags = ["casual", "комфорт", "повседневный"];
+        } else if (event === "party") {
+          text = "На вечеринку: лиловое платье-комбинация, чёрный жакет oversize, аккуратная обувь и небольшая сумка. Украшения — по настроению.";
+          tags = ["вечеринка", "акцент на платье"];
+        } else if (event === "date") {
+          text = "На свидание: мягкий свитер пастельного оттенка, джинсы или юбка, аккуратная обувь и лёгкие украшения. Образ — нежный и комфортный.";
+          tags = ["романтика", "мягкие оттенки"];
+        } else if (event === "study") {
+          text = "Для репетитора / учёбы: удобные джинсы или брюки, простой верх (футболка/рубашка), удобная обувь и минимум отвлекающих деталей.";
+          tags = ["фокус на учёбе", "минимум отвлечения"];
+        }
+      }
+
+      if (styleWish) {
+        text += " Я учитываю твоё пожелание по стилю: «" + styleWish + "».";
+        tags.push(styleWish);
+      }
+
       result.innerHTML = `
         <div class="ai-label">Рекомендация ИИ-стилиста ARELEI</div>
         <div class="ai-title">
@@ -1347,26 +1311,7 @@ function stopCamera() {
           ${tags.map(t => `<span class="ai-tag">${t}</span>`).join("")}
         </div>
       `;
-    }// опционально: сюда можно подключить настоящий backend с ИИ
-async function callAIStylistBackend(prompt) {
-  // Если у тебя пока нет сервера — можно оставить заглушку:
-  // throw new Error("backend not configured");
-
-  const response = await fetch("https://ТВОЙ-БЭКЕНД-ДОМЕН/stylist", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt })
-  });
-
-  if (!response.ok) {
-    throw new Error("AI backend error");
-  }
-
-  const data = await response.json();
-  // Ожидаем, что сервер вернёт { answer: "текст рекомендации" }
-  return data.answer;
-}
-
+    }
 
     /* ---------- PRO ---------- */
 
@@ -1415,9 +1360,9 @@ async function callAIStylistBackend(prompt) {
           </div>
 
           <div style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap;">
-           <button class="btn btn-primary btn-sm" onclick="openProPayment()">
-  Оплатить PRO-подписку 💳
-</button>
+            <button class="btn btn-primary btn-sm" onclick="openProPayment()">
+              Оплатить PRO-подписку 💳
+            </button>
             <button class="btn btn-ghost btn-sm" onclick="setActiveTab('dashboard')">
               На главную
             </button>
@@ -1479,7 +1424,7 @@ async function callAIStylistBackend(prompt) {
       });
     }
 
-    function togglePro() {
+    function toggleProDemo() {
       state.isProActive = !state.isProActive;
       const badge = $("#proStatusBadge");
       if (state.isProActive) {
@@ -1487,26 +1432,22 @@ async function callAIStylistBackend(prompt) {
       } else {
         badge.innerHTML = '<div class="pro-dot"></div> Free-план · бесплатный ИИ-стилист 🤖';
       }
-      const active = document.querySelector(".tab-btn.active");
-      if (active) setActiveTab(active.dataset.tab);
-    } function openProPayment() {
-  // ЗАМЕНИ username бота на свой, когда он будет
-  const botUsername = "@arelei_ai_bot"; 
+    }
 
-  // открываем чат с ботом (или WebApp откроет его внутри)
-  const url = "https://web.telegram.org/k/#@arelei_ai_bot";
+    function openProPayment() {
+      const botUsername = "areleI_wardrobe_bot"; // TODO: заменить на реального бота
 
-  // если приложение запущено как Telegram WebApp
-  if (window.Telegram && window.Telegram.WebApp) {
-    window.Telegram.WebApp.openTelegramLink(url);
-  } else {
-    // обычный браузер
-    window.open(url, "_blank");
-  }
-}
+      const url = "https://t.me/" + botUsername + "?start=buy_pro";
 
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.openTelegramLink(url);
+      } else {
+        window.open(url, "_blank");
+      }
 
-    /* ---------- ИНИЦИАЛИЗАЦИЯ ---------- */
+      // Для демо можешь сразу включать PRO:
+      toggleProDemo();
+    }
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
