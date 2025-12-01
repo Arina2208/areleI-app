@@ -11,7 +11,7 @@
       --glass: rgba(255, 255, 255, 0.82);
       --glass-strong: rgba(255, 255, 255, 0.96);
       --border-glass: rgba(255, 255, 255, 0.8);
-      --primary: #007aff; /* Apple blue */
+      --primary: #007aff;
       --primary-soft: rgba(0, 122, 255, 0.12);
       --accent-pink: #ff2d55;
       --text-main: #111827;
@@ -33,6 +33,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
       background: radial-gradient(circle at top, #ffffff 0, #f2f2f7 55%, #e5e5ea 100%);
       color: var(--text-main);
+      font-size: 15px;
     }
 
     body {
@@ -59,7 +60,7 @@
       width: 260px;
       height: 260px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.9), rgba(0, 122, 255, 0.12), transparent 70%);
+      background: radial-gradient(circle at 30% 20%, #ffffff, rgba(0, 122, 255, 0.12), transparent 70%);
       filter: blur(6px);
       opacity: 0.9;
       z-index: -1;
@@ -121,7 +122,7 @@
     }
 
     .brand-text-sub {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
@@ -224,7 +225,7 @@
       align-items: center;
       gap: 8px;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .card-title span {
@@ -232,7 +233,7 @@
     }
 
     .card-sub {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 3px;
     }
@@ -241,7 +242,7 @@
       border-radius: 999px;
       border: none;
       padding: 8px 14px;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -274,11 +275,18 @@
 
     .btn-sm {
       padding: 7px 12px;
-      font-size: 11px;
+      font-size: 12px;
+    }
+
+    /* широкая кнопка в стилисте — чтобы не “съезжала” */
+    .btn-full {
+      width: 100%;
+      justify-content: center;
+      margin-top: 6px;
     }
 
     .notes {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-top: 6px;
       line-height: 1.45;
@@ -294,7 +302,7 @@
 
     label {
       display: block;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 4px;
     }
@@ -306,7 +314,7 @@
       padding: 9px 11px;
       border-radius: 14px;
       border: 1px solid rgba(120, 120, 128, 0.18);
-      font-size: 13px;
+      font-size: 14px;
       background: rgba(248, 248, 250, 0.96);
       color: var(--text-main);
       outline: none;
@@ -332,23 +340,23 @@
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.95);
       padding: 8px 10px;
-      font-size: 11px;
+      font-size: 12px;
       box-shadow: 0 12px 26px rgba(15, 23, 42, 0.14);
     }
 
     .stat-label {
       color: var(--text-muted);
-      font-size: 10px;
+      font-size: 11px;
       margin-bottom: 2px;
     }
 
     .stat-value {
       font-weight: 600;
-      font-size: 16px;
+      font-size: 17px;
     }
 
     .stat-note {
-      font-size: 10px;
+      font-size: 11px;
       color: #34c759;
       margin-top: 2px;
     }
@@ -359,12 +367,12 @@
       border-radius: 18px;
       background: var(--glass-strong);
       border: 1px solid rgba(255, 255, 255, 0.98);
-      font-size: 12px;
+      font-size: 13px;
       box-shadow: 0 12px 26px rgba(15, 23, 42, 0.16);
     }
 
     .ai-label {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
       margin-bottom: 4px;
       text-transform: uppercase;
@@ -377,7 +385,7 @@
       align-items: center;
       gap: 7px;
       margin-bottom: 5px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .ai-title span {
@@ -385,7 +393,7 @@
     }
 
     .ai-text {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.5;
       margin-bottom: 5px;
@@ -398,7 +406,7 @@
     }
 
     .ai-tag {
-      font-size: 10px;
+      font-size: 11px;
       padding: 3px 7px;
       border-radius: 999px;
       background: rgba(0, 122, 255, 0.08);
@@ -417,7 +425,7 @@
       border-radius: 18px;
       border: 1px solid rgba(255, 255, 255, 0.96);
       padding: 8px 6px;
-      font-size: 11px;
+      font-size: 12px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -452,7 +460,7 @@
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.98);
       padding: 8px 10px;
-      font-size: 12px;
+      font-size: 13px;
       box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
     }
 
@@ -474,24 +482,24 @@
 
     .clothes-name {
       font-weight: 500;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .clothes-meta {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
     .chip {
       border-radius: 999px;
       padding: 3px 7px;
-      font-size: 10px;
+      font-size: 11px;
       background: rgba(242, 242, 247, 1);
       color: #3a3a3c;
     }
 
     .badge {
-      font-size: 10px;
+      font-size: 11px;
       padding: 3px 7px;
       border-radius: 999px;
       background: rgba(52, 199, 89, 0.14);
@@ -517,7 +525,7 @@
     }
 
     input[type="file"] {
-      font-size: 10px;
+      font-size: 11px;
     }
 
     .discounts {
@@ -525,7 +533,7 @@
       flex-direction: column;
       gap: 7px;
       margin-top: 7px;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .discount-card {
@@ -549,12 +557,12 @@
 
     .discount-brand {
       font-weight: 600;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .discount-info {
       color: #0f4c75;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .badge-link {
@@ -623,10 +631,10 @@
       border-radius: 999px;
       background: rgba(255, 149, 0, 0.14);
       color: #783506;
-      font-size: 10px;
+      font-size: 11px;
     }
 
-    /* Онбординг: полноэкранные слайды */
+    /* Онбординг */
 
     .onb-wrapper {
       min-height: calc(100vh - 150px);
@@ -698,6 +706,16 @@
     .onb-buttons .btn {
       flex: 1;
       justify-content: center;
+    }
+
+    /* Погода авто-лейбл */
+    .weather-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--text-muted);
     }
   </style>
 </head>
@@ -850,7 +868,7 @@
       else if (state.tab === "pro") renderPro(root);
     }
 
-    /* ====== ОНБОРДИНГ: 3 ПОЛНОЭКРАННЫХ СЛАЙДА ====== */
+    /* ===== ОНБОРДИНГ ===== */
 
     function renderOnboarding(root) {
       const step = state.onboardingStep;
@@ -866,7 +884,8 @@
           <div class="inputs">
             <div>
               <label for="ageInput">Сколько тебе лет?</label>
-              <input id="ageInput" type="number" min="7" max="80" placeholder="Например, 15" value="${state.profile.age || ""}" />
+              <input id="ageInput" type="number" min="7" max="80"
+                     placeholder="Например, 15" value="${state.profile.age || ""}" />
             </div>
           </div>
           <div class="onb-buttons">
@@ -924,7 +943,8 @@
           <div class="inputs">
             <div>
               <label for="cityInput">Город</label>
-              <input id="cityInput" type="text" placeholder="Например, Москва" value="${state.profile.city || ""}" />
+              <input id="cityInput" type="text"
+                     placeholder="Например, Москва" value="${state.profile.city || ""}" />
             </div>
           </div>
           <div class="onb-buttons">
@@ -1015,7 +1035,7 @@
       return "";
     }
 
-    /* ====== ГЛАВНАЯ ====== */
+    /* ===== ГЛАВНАЯ ===== */
 
     function renderHome(root) {
       const total = state.clothes.length;
@@ -1105,7 +1125,7 @@
       `;
     }
 
-    /* ====== ГАРДЕРОБ ====== */
+    /* ===== ГАРДЕРОБ ===== */
 
     function renderWardrobe(root) {
       const items = state.clothes;
@@ -1132,7 +1152,7 @@
                     }
                   </div>
                 </div>
-                <button class="btn btn-ghost btn-sm" style="padding:4px 8px;font-size:10px;"
+                <button class="btn btn-ghost btn-sm" style="padding:4px 8px;font-size:11px;"
                   onclick="deleteClothes(${i})">
                   ✕
                 </button>
@@ -1204,7 +1224,7 @@
       saveState();
     }
 
-    /* ====== AR ====== */
+    /* ===== AR ===== */
 
     function renderAR(root) {
       root.innerHTML = `
@@ -1337,7 +1357,7 @@
       reader.readAsDataURL(file);
     }
 
-    /* ====== ИИ-СТИЛИСТ (заглушка под GPT) ====== */
+    /* ===== ИИ-СТИЛИСТ ===== */
 
     function renderStylist(root) {
       root.innerHTML = `
@@ -1360,8 +1380,11 @@
               </select>
             </div>
             <div>
-              <label for="weatherSelect">Погода</label>
-              <select id="weatherSelect">
+              <label>Погода</label>
+              <div class="weather-label" id="weatherAutoLabel">
+                Определяем погоду по твоему местоположению…
+              </div>
+              <select id="weatherSelect" style="margin-top:6px;">
                 <option value="cool">Прохладно (+5…+10°)</option>
                 <option value="warm">Тепло (+15…+22°)</option>
                 <option value="hot">Жарко (+25° и выше)</option>
@@ -1372,7 +1395,7 @@
               <input id="styleInput" type="text" placeholder="минимализм, ярко, по-деловому..." />
             </div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="generateOutfit()">
+          <button class="btn btn-primary btn-sm btn-full" onclick="generateOutfit()">
             Подобрать образ ✨
           </button>
 
@@ -1404,6 +1427,9 @@
           </div>
         </div>
       `;
+
+      // запускаем авто-определение погоды после рендера
+      autoDetectWeather();
     }
 
     function generateOutfit() {
@@ -1462,7 +1488,7 @@
       `;
     }
 
-    /* ====== PRO ====== */
+    /* ===== PRO ===== */
 
     function renderPro(root) {
       root.innerHTML = `
@@ -1514,15 +1540,75 @@
 
     function updateStatusBadge() {
       const badge = document.getElementById("statusBadge");
+      const proIconSpan = document.querySelector('.tab-btn.pro span.icon');
+
       if (state.pro) {
-        badge.innerHTML = '<div class="badge-dot"></div> PRO-подписка активна 💎';
+        badge.innerHTML = '<div class="badge-dot"></div> PRO-подписка активна 👑';
+        if (proIconSpan) proIconSpan.textContent = "👑";
       } else {
         badge.innerHTML =
           '<div class="badge-dot"></div> Free-план · ИИ-стилист доступен бесплатно 🤖';
+        if (proIconSpan) proIconSpan.textContent = "💎";
       }
     }
 
-    /* ====== Telegram init: автопривязка аккаунта ====== */
+    /* ===== Авто-погода ===== */
+
+    async function autoDetectWeather() {
+      const label = document.getElementById("weatherAutoLabel");
+      const select = document.getElementById("weatherSelect");
+      if (!select || !label) return;
+
+      if (!navigator.geolocation) {
+        label.textContent = "Геолокация недоступна — выбери погоду вручную.";
+        return;
+      }
+
+      label.textContent = "Запрашиваем геолокацию…";
+
+      navigator.geolocation.getCurrentPosition(
+        async pos => {
+          try {
+            const { latitude, longitude } = pos.coords;
+            label.textContent = "Получаем температуру…";
+
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`;
+            const resp = await fetch(url);
+            const data = await resp.json();
+            const temp =
+              data && data.current && typeof data.current.temperature_2m === "number"
+                ? data.current.temperature_2m
+                : null;
+
+            if (temp === null) {
+              label.textContent = "Не удалось получить погоду — выбери вручную.";
+              return;
+            }
+
+            let mode;
+            if (temp <= 10) mode = "cool";
+            else if (temp <= 22) mode = "warm";
+            else mode = "hot";
+
+            select.value = mode;
+
+            const textMode =
+              mode === "cool" ? "прохладно" : mode === "warm" ? "тепло" : "жарко";
+
+            label.textContent = `Погода: ${temp.toFixed(0)}° · ${textMode}`;
+          } catch (e) {
+            console.error(e);
+            label.textContent = "Ошибка погоды — выбери вручную.";
+          }
+        },
+        err => {
+          console.warn(err);
+          label.textContent = "Геолокация отклонена — выбери погоду вручную.";
+        }
+      );
+    }
+
+    /* ===== Telegram init ===== */
 
     function initTelegramUser() {
       try {
@@ -1540,9 +1626,10 @@
 
             if (tgNameEl) tgNameEl.textContent = fullName;
             if (tgAvatarEl) tgAvatarEl.textContent = (firstName || "A").charAt(0).toUpperCase();
-            if (tgTagEl) tgTagEl.textContent = username
-              ? `Вход через Telegram ${username}`
-              : "Аккаунт Telegram уже привязан";
+            if (tgTagEl)
+              tgTagEl.textContent = username
+                ? `Вход через Telegram ${username}`
+                : "Аккаунт Telegram уже привязан";
           }
         }
       } catch (e) {
@@ -1550,7 +1637,7 @@
       }
     }
 
-    /* ====== START ====== */
+    /* ===== START ===== */
 
     document.addEventListener("DOMContentLoaded", function () {
       loadState();
