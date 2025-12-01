@@ -46,6 +46,7 @@
       display: flex;
       flex-direction: column;
       background: var(--bg);
+      position: relative;
     }
 
     header {
@@ -404,12 +405,6 @@
       color: #257347;
     }
 
-    .badge-delete {
-      background: #fde8e6;
-      color: #b03333;
-      cursor: pointer;
-    }
-
     .notes {
       font-size: 9.5px;
       color: var(--text-muted);
@@ -432,7 +427,8 @@
     }
 
     select,
-    input[type="text"] {
+    input[type="text"],
+    input[type="number"] {
       width: 100%;
       padding: 6px 7px;
       border-radius: 8px;
@@ -444,7 +440,8 @@
     }
 
     select:focus,
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+    input[type="number"]:focus {
       border-color: #d8b48b;
       box-shadow: 0 0 0 1px #f0d2ac;
     }
@@ -572,10 +569,6 @@
       color: #aa5b33;
       font-size: 9px;
     }
-
-    .center {
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -638,6 +631,12 @@
     const state = {
       tab: "home",
       pro: false,
+      onboarded: false,
+      profile: {
+        age: null,
+        city: "",
+        goal: ""
+      },
       clothes: [],
       discounts: [
         {
@@ -662,6 +661,8 @@
         const data = JSON.parse(raw);
         if (Array.isArray(data.clothes)) state.clothes = data.clothes;
         if (typeof data.pro === "boolean") state.pro = data.pro;
+        if (typeof data.onboarded === "boolean") state.onboarded = data.onboarded;
+        if (data.profile) state.profile = data.profile;
       } catch (e) {
         console.error(e);
       }
@@ -671,7 +672,12 @@
       try {
         localStorage.setItem(
           STORAGE_KEY,
-          JSON.stringify({ clothes: state.clothes, pro: state.pro })
+          JSON.stringify({
+            clothes: state.clothes,
+            pro: state.pro,
+            onboarded: state.onboarded,
+            profile: state.profile
+          })
         );
       } catch (e) {
         console.error(e);
@@ -679,15 +685,32 @@
     }
 
     function setTab(tab) {
+      // если онбординг не пройден — не даём ходить по вкладкам, кроме home
+      if (!state.onboarded && tab !== "home") {
+        alert("Сначала ответь на пару вопросов на главном экране 🙂");
+        state.tab = "home";
+        highlightTab("home");
+        renderOnboarding(document.getElementById("screen"));
+        return;
+      }
+
       state.tab = tab;
+      highlightTab(tab);
+      renderScreen();
+    }
+
+    function highlightTab(tab) {
       document
         .querySelectorAll(".tab-btn")
         .forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
-      renderScreen();
     }
 
     function renderScreen() {
       const root = document.getElementById("screen");
+      if (!state.onboarded) {
+        renderOnboarding(root);
+        return;
+      }
       if (state.tab === "home") renderHome(root);
       else if (state.tab === "wardrobe") renderWardrobe(root);
       else if (state.tab === "ar") renderAR(root);
@@ -695,21 +718,124 @@
       else if (state.tab === "pro") renderPro(root);
     }
 
+    /* ---------- ОНБОРДИНГ (НАЧАЛЬНЫЙ ЭКРАН) ---------- */
+
+    function renderOnboarding(root) {
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>👋</span> Добро пожаловать в ARELEI</div>
+              <div class="card-sub">Пару вопросов — и стилист подстроится под тебя</div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div>
+              <label for="ageInput">Сколько тебе лет?</label>
+              <input id="ageInput" type="number" min="7" max="80" placeholder="Например, 15" />
+            </div>
+            <div>
+              <label for="goalSelect">Зачем тебе ARELEI?</label>
+              <select id="goalSelect">
+                <option value="">Выбери вариант</option>
+                <option value="school">Оптимизировать школьный / учебный гардероб</option>
+                <option value="style">Научиться подбирать стильные образы</option>
+                <option value="save">Меньше тратить на вещи / разумный шопинг</option>
+                <option value="work">Собрать гардероб для работы</option>
+              </select>
+            </div>
+            <div>
+              <label for="cityInput">Из какого ты города?</label>
+              <input id="cityInput" type="text" placeholder="Например, Москва" />
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm" onclick="completeOnboarding()">
+            Продолжить в приложение ✨
+          </button>
+
+          <div class="notes">
+            Возраст нужен, чтобы понять: школа/колледж это или работа.<br />
+            Город — чтобы учитывать погоду и климат.<br />
+            Цель — чтобы ИИ понимал, на чём делать акцент: стиль, экономия или дресс-код.
+          </div>
+        </div>
+      `;
+    }
+
+    function completeOnboarding() {
+      const ageEl = document.getElementById("ageInput");
+      const goalEl = document.getElementById("goalSelect");
+      const cityEl = document.getElementById("cityInput");
+
+      const age = parseInt(ageEl.value, 10);
+      const goal = goalEl.value;
+      const city = cityEl.value.trim();
+
+      if (!age || age < 7 || age > 80) {
+        alert("Введи, пожалуйста, реальный возраст (от 7 до 80).");
+        return;
+      }
+      if (!goal) {
+        alert("Выбери, пожалуйста, цель использования ARELEI.");
+        return;
+      }
+      if (!city) {
+        alert("Введи, пожалуйста, город.");
+        return;
+      }
+
+      state.profile = { age, city, goal };
+      state.onboarded = true;
+      saveState();
+
+      // после онбординга переключаем на главную
+      setTab("home");
+    }
+
+    function goalToText(goal) {
+      if (goal === "school") return "школьный / учебный гардероб";
+      if (goal === "style") return "стильные образы";
+      if (goal === "save") return "разумный шопинг";
+      if (goal === "work") return "гардероб для работы";
+      return "";
+    }
+
     /* ---------- ГЛАВНАЯ ---------- */
 
     function renderHome(root) {
       const total = state.clothes.length;
+
+      let profileLine = "";
+      if (state.profile && state.profile.age && state.profile.city) {
+        const ctx =
+          state.profile.age >= 7 && state.profile.age <= 17
+            ? "фокус на школе / колледже"
+            : "фокус на учёбе / работе";
+        profileLine = `
+          <div class="notes">
+            Профиль: <b>${state.profile.age}</b> лет · ${state.profile.city} · цель — ${goalToText(
+          state.profile.goal
+        ) || "не указана"}<br/>
+            Режим: ${ctx}.
+          </div>
+        `;
+      }
+
       root.innerHTML = `
         <div class="card">
           <div class="card-header">
             <div>
               <div class="card-title"><span>✨</span> AI-стилист ARELEI</div>
-              <div class="card-sub">Создай образ под случай, погоду и настроение</div>
+              <div class="card-sub">Создаёт образы под твой возраст, город и цели</div>
             </div>
             <button class="btn btn-primary btn-sm" onclick="setTab('stylist')">
               Открыть стилиста
             </button>
           </div>
+
+          ${profileLine}
 
           <div class="ai-block">
             <div class="ai-label">Инсайты по гардеробу</div>
@@ -726,7 +852,8 @@
               </div>
             </div>
             <div class="notes">
-              Сейчас инсайты обнулены. Добавь вещи во вкладке «Гардероб», и ARELEI начнёт строить статистику, подсказки и капсулы.
+              Сейчас инсайты обнулены. Добавь вещи во вкладке «Гардероб», и ARELEI начнёт строить статистику,
+              подсказки и капсулы под твой профиль.
             </div>
           </div>
 
@@ -883,7 +1010,7 @@
 
           <div class="notes">
             В реальном приложении фото вещи обрабатывается ИИ: вырезается фон, вещь ставится на белый фон
-            и используется для примерки. Здесь мы эмулируем этот процесс и просто кладём фото в гардероб.
+            и используется для примерки. Сейчас мы просто сохраняем фото в гардероб.
           </div>
         </div>
 
@@ -918,9 +1045,9 @@
       const d = state.discounts[index];
       alert(
         d.brand +
-          "\\n\\n" +
+          "\n\n" +
           d.offer +
-          "\\n\\nВ боевой версии ARELEI откроет карточку товара на OZON / Wildberries с UTM-метками."
+          "\n\nВ боевой версии ARELEI откроет карточку товара на OZON / Wildberries с UTM-метками."
       );
     }
 
@@ -1044,12 +1171,12 @@
           <div class="card-header">
             <div>
               <div class="card-title"><span>🎨</span> Анализ цветотипа (PRO)</div>
-              <div class="card-sub">Будет работать, когда подключишь GPT и бэкенд</div>
+              <div class="card-sub">Появится, когда подключим GPT-бэкенд</div>
             </div>
             <span class="pill">по подписке</span>
           </div>
           <div class="notes">
-            Здесь можно будет вызывать GPT через твой сервер и рассчитывать цветотип, макияж, причёску и капсулы.
+            Здесь позже будем вызывать GPT через сервер, чтобы рассчитывать цветотип, макияж, причёску и капсулы.
           </div>
         </div>
       `;
@@ -1080,7 +1207,7 @@
         }
       } else if (event === "work") {
         text =
-          "Для работы: строгий верх (рубашка или трикотаж), прямые брюки или джинсы тёмного цвета, закрытая обувь. Можно добавить жакет.";
+          "Для работы: строгий верх (рубашка или трикотаж), прямые брюки или тёмные джинсы, закрытая обувь. Можно добавить жакет.";
         tags = ["офис", "по-деловому"];
       } else if (event === "walk") {
         text =
@@ -1092,7 +1219,7 @@
         tags = ["вечеринка", "акцент"];
       } else if (event === "date") {
         text =
-          "На свидание: мягкий свитер или топ в приятном оттенке, юбка или джинсы и аккуратные ботинки или кроссовки.";
+          "На свидание: мягкий свитер или топ в приятном оттенке, юбка или джинсы и аккуратные ботинки/кроссовки.";
         tags = ["романтика", "мягкие оттенки"];
       }
 
@@ -1100,6 +1227,8 @@
         text += " Учитываю твоё пожелание: «" + styleWish + "».";
         tags.push(styleWish);
       }
+
+      // В дальнейшем сюда вместо этой логики вставим запрос к GPT-бэкенду
 
       result.innerHTML = `
         <div class="ai-label">Рекомендация стилиста</div>
@@ -1143,8 +1272,7 @@
             </button>
           </div>
           <div class="notes">
-            Для реальной оплаты нужно использовать Telegram Stars и сервер бота.
-            Сейчас кнопка просто переключит статус в режиме демонстрации.
+            В демо-версии эта кнопка просто включает/выключает PRO. В реальном приложении здесь будет оплата через Telegram Stars.
           </div>
         </div>
       `;
@@ -1156,7 +1284,7 @@
       updateStatusBadge();
       alert(
         state.pro
-          ? "В демо-режиме PRO активирован. В реальном приложении здесь будет оплата через Telegram Stars."
+          ? "В демо-режиме PRO активирован. Потом сюда подключим реальную оплату через Telegram."
           : "PRO выключен."
       );
     }
@@ -1197,7 +1325,15 @@
       loadState();
       updateStatusBadge();
       initTelegramUser();
-      setTab("home");
+
+      // если онбординг ещё не проходили — показываем начальный экран
+      if (!state.onboarded) {
+        state.tab = "home";
+        highlightTab("home");
+        renderOnboarding(document.getElementById("screen"));
+      } else {
+        setTab("home");
+      }
     });
   </script>
 </body>
