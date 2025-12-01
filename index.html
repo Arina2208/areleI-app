@@ -3,1525 +3,1202 @@
 <head>
   <meta charset="UTF-8" />
   <title>ARELEI · Умный гардероб</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <style>
     :root {
-      --bg-main: #fdf7ef;
-      --bg-card: #ffffff;
-      --bg-strong: #f0d9c5;
-      --bg-chip: #f5e4d4;
-      --accent: #e48c5c;
-      --accent-soft: #f6b58a;
-      --accent-dark: #c46d3c;
-      --text-main: #2b1f18;
-      --text-soft: #7a6b5f;
-      --border-soft: #ead7c7;
-      --danger: #e25b5b;
-      --shadow-soft: 0 16px 40px rgba(0,0,0,0.08);
-      --radius-card: 18px;
+      --bg: #f5f0e9;
+      --card-bg: #ffffff;
+      --primary: #c26a3d;
+      --primary-soft: #f5c7a1;
+      --text-main: #2b1d16;
+      --text-muted: #85766a;
+      --border-soft: #e3d6c8;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 10px 24px rgba(43, 29, 22, 0.15);
     }
 
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: -apple-system, system-ui, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: var(--bg-main);
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg);
       color: var(--text-main);
     }
 
     body {
       display: flex;
       justify-content: center;
+      align-items: stretch;
     }
 
     .app {
       width: 100%;
-      max-width: 414px; /* примерно айфон */
+      max-width: 430px;
       height: 100vh;
-      background: var(--bg-main);
+      padding: env(safe-area-inset-top) 12px calc(60px + env(safe-area-inset-bottom)) 12px;
       display: flex;
       flex-direction: column;
-      position: relative;
+      background: var(--bg);
     }
 
     header {
-      padding: 10px 14px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 6px 2px 8px;
     }
 
-    .logo-block {
+    .brand {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .logo-dot {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #ffe7cc, #e79c63);
+    .logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background: conic-gradient(from 160deg, #c26a3d, #e99f7e, #ffe0bd, #c26a3d);
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 6px 14px rgba(150, 90, 50, 0.5);
+    }
+
+    .brand-text-title {
       font-weight: 700;
-      color: #fffdf7;
-      font-size: 14px;
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-title {
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .logo-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .header-info {
-      text-align: right;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .header-city {
-      font-weight: 600;
-      font-size: 12px;
-    }
-
-    main {
-      flex: 1;
-      padding: 4px 12px 76px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius-card);
-      padding: 12px 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.04);
-      margin-bottom: 10px;
-    }
-
-    .card-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-weight: 600;
       font-size: 15px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
-    .card-sub {
-      font-size: 12px;
-      color: var(--text-soft);
+    .brand-text-title span {
+      font-size: 18px;
     }
 
-    .pill {
+    .brand-text-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .tg-user {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
+      padding: 5px 10px;
       border-radius: 999px;
-      background: var(--bg-chip);
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-right: 4px;
-      margin-bottom: 4px;
-      white-space: nowrap;
-    }
-
-    .pill-accent {
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #fffaf3;
-    }
-
-    .pill-small {
-      padding: 2px 8px;
+      background: #fffaf4;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
       font-size: 10px;
     }
 
-    .badge-pro {
-      background: #ffe5c2;
-      color: #a45823;
+    .tg-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c26a3d, #e99f7e);
+      color: #fff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .tg-name {
+      font-weight: 500;
+    }
+
+    .tg-tag {
+      color: var(--text-muted);
+      font-size: 9px;
+    }
+
+    .badge-status {
+      margin: 0 2px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fcefdc;
+      color: #aa5b33;
+      font-size: 10px;
+      box-shadow: 0 4px 12px rgba(171, 120, 77, 0.3);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3bb073;
+      box-shadow: 0 0 0 3px rgba(59, 176, 115, 0.25);
+    }
+
+    #screen {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 2px 6px;
+      font-size: 13px;
+    }
+
+    #screen::-webkit-scrollbar {
+      width: 4px;
+    }
+    #screen::-webkit-scrollbar-thumb {
+      background: #d4c4b4;
+      border-radius: 999px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 10px 12px 12px;
+      margin-bottom: 9px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-weight: 600;
+      font-size: 13px;
+    }
+
+    .card-title span {
+      font-size: 17px;
+    }
+
+    .card-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
 
     .btn {
-      border: none;
       border-radius: 999px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
+      border: none;
+      padding: 7px 12px;
+      font-size: 11px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      background: #fff;
-      color: var(--text-main);
+      gap: 4px;
+      white-space: nowrap;
+      transition: 0.15s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #fffaf4;
-      box-shadow: 0 8px 20px rgba(224, 131, 80, 0.4);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border-soft);
-      background: #fffdf9;
-    }
-
-    .btn-danger {
-      background: var(--danger);
+      background: linear-gradient(135deg, #c26a3d, #e99f7e);
       color: #fff;
+      box-shadow: 0 7px 16px rgba(153, 91, 52, 0.5);
     }
 
-    .btn-full {
-      width: 100%;
+    .btn-primary:active {
+      transform: scale(0.97);
+      box-shadow: 0 3px 9px rgba(153, 91, 52, 0.7);
     }
 
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: default;
-      box-shadow: none;
+    .btn-ghost {
+      background: #fffaf4;
+      color: #5b4333;
+      border: 1px solid #e3d6c8;
+    }
+
+    .btn-ghost:active {
+      transform: scale(0.97);
     }
 
     .btn-sm {
       padding: 6px 10px;
-      font-size: 12px;
+      font-size: 10px;
     }
 
-    .chips-row {
+    .stat-row {
       display: flex;
       gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
-    .chip-tab {
-      padding: 5px 10px;
-      font-size: 11px;
-      border-radius: 999px;
-      background: var(--bg-chip);
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-
-    .chip-tab.active {
-      background: #fff;
-      border-color: var(--accent-soft);
-      color: var(--accent-dark);
-      font-weight: 600;
-    }
-
-    .section-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .section-title {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .section-link {
-      font-size: 12px;
-      color: var(--accent-dark);
-      cursor: pointer;
-    }
-
-    .insights-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .insight-box {
-      background: #fff9f2;
-      border-radius: 14px;
-      padding: 8px 10px;
-      border: 1px solid #f4e0cf;
-      font-size: 11px;
-    }
-
-    .insight-label {
-      color: var(--text-soft);
-      margin-bottom: 2px;
-    }
-
-    .insight-value {
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    .insight-note {
-      font-size: 10px;
-      color: var(--accent-dark);
-      margin-top: 2px;
-    }
-
-    .empty-text {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-top: 6px;
-    }
-
-    .wardrobe-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .wardrobe-item {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      border-radius: 14px;
-      padding: 8px 10px;
-      background: #fffdf9;
-      border: 1px solid #f0dfcf;
-    }
-
-    .wardrobe-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: #f4e0cf;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      overflow: hidden;
-    }
-
-    .wardrobe-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .wardrobe-main {
+    .stat {
       flex: 1;
-      min-width: 0;
+      background: #fdf7ef;
+      border-radius: 12px;
+      border: 1px solid #e7d7c7;
+      padding: 6px 8px;
+      font-size: 10px;
     }
 
-    .wardrobe-name {
-      font-size: 14px;
-      font-weight: 600;
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 9px;
       margin-bottom: 2px;
     }
 
-    .wardrobe-meta {
+    .stat-value {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .stat-note {
+      font-size: 9px;
+      color: #3bb073;
+    }
+
+    .ai-block {
+      margin-top: 6px;
+      padding: 7px 8px;
+      border-radius: 12px;
+      background: #fdf7ef;
+      border: 1px dashed #e1d0bd;
       font-size: 11px;
-      color: var(--text-soft);
+    }
+
+    .ai-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .ai-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       margin-bottom: 4px;
     }
 
-    .wardrobe-tags {
+    .ai-title span {
+      font-size: 15px;
+    }
+
+    .ai-text {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-bottom: 3px;
+    }
+
+    .ai-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .wardrobe-actions {
+    .ai-tag {
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 999px;
+      background: #fbead3;
+      color: #a45a33;
+    }
+
+    .quick-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .quick {
+      background: #fffaf4;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 7px 5px;
+      font-size: 10px;
+      text-align: center;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 4px;
+      cursor: pointer;
+      transition: 0.15s ease;
     }
 
-    .wardrobe-actions button {
+    .quick span.icon {
+      font-size: 18px;
+    }
+
+    .quick:active {
+      transform: scale(0.96);
+      background: #fcefdc;
+    }
+
+    .clothes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .clothes-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #fdf7ef;
+      border-radius: 14px;
+      border: 1px solid #e7d7c7;
+      padding: 6px 8px;
       font-size: 11px;
     }
 
-    .tab-bar {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 414px;
-      height: 64px;
-      background: #2d2019;
-      border-radius: 20px 20px 0 0;
-      box-shadow: 0 -10px 25px rgba(0,0,0,0.28);
-      padding: 6px 10px 8px;
+    .item-image {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 11px;
+      background: #e5e0da;
+      object-fit: cover;
+    }
+
+    .clothes-main {
+      flex: 1;
       display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .clothes-name {
+      font-weight: 500;
+    }
+
+    .clothes-meta {
+      font-size: 9.5px;
+      color: var(--text-muted);
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 2px 5px;
+      font-size: 9px;
+      background: #f0e4d8;
+      color: #5b4333;
+    }
+
+    .badge {
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 999px;
+      background: #e7f7ed;
+      color: #257347;
+    }
+
+    .badge-delete {
+      background: #fde8e6;
+      color: #b03333;
+      cursor: pointer;
+    }
+
+    .notes {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    label {
+      display: block;
+      font-size: 9px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      padding: 6px 7px;
+      border-radius: 8px;
+      border: 1px solid #e3d6c8;
+      font-size: 10.5px;
+      background: #fffaf4;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      border-color: #d8b48b;
+      box-shadow: 0 0 0 1px #f0d2ac;
+    }
+
+    .ar-video,
+    .ar-photo {
+      width: 100%;
+      border-radius: 14px;
+      background: #000;
+      max-height: 260px;
+      object-fit: cover;
+    }
+
+    .upload-row {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       align-items: center;
-      justify-content: space-around;
-      color: #f7ede2;
+    }
+
+    input[type="file"] {
+      font-size: 9px;
+    }
+
+    .discounts {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 4px;
+      font-size: 10px;
+    }
+
+    .discount-card {
+      border-radius: 12px;
+      padding: 7px 8px;
+      background: #f2fbff;
+      border: 1px solid #bee9f5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .discount-card:active {
+      transform: scale(0.97);
+      background: #e0f6ff;
+    }
+
+    .discount-brand {
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .discount-info {
+      color: #0f5e6e;
+      font-size: 9.5px;
+    }
+
+    .badge-link {
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #084c61;
+      color: #d9f4ff;
+    }
+
+    .bottom-nav {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 8px;
+      padding: 6px 10px;
+      background: rgba(35, 25, 18, 0.98);
+      border-radius: 999px;
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7);
     }
 
     .tab-btn {
       flex: 1;
-      text-align: center;
-      font-size: 10px;
-      color: #f7ede2;
-      opacity: 0.7;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: rgba(255, 250, 244, 0.7);
+      font-size: 9.5px;
+      padding: 5px 0 2px;
+      border-radius: 999px;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 2px;
-      cursor: pointer;
+      gap: 1px;
+      transition: 0.15s ease;
     }
 
-    .tab-btn span {
+    .tab-btn span.icon {
       font-size: 18px;
     }
 
     .tab-btn.active {
-      opacity: 1;
-      font-weight: 600;
-    }
-
-    .tab-btn.active .tab-icon-wrap {
-      background: #fff;
-      color: #2d2019;
-    }
-
-    .tab-icon-wrap {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2px;
-      font-size: 16px;
-    }
-
-    .tab-btn.center {
-      flex: 0;
-      margin: 0 4px;
-    }
-
-    .tab-btn.center .tab-icon-wrap {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #fffaf2;
-      box-shadow: 0 12px 26px rgba(224, 131, 80, 0.65);
-      border: none;
-      margin-bottom: 0;
-    }
-
-    .tab-btn.center .tab-label {
-      display: none;
-    }
-
-    .input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 8px;
-      font-size: 12px;
-    }
-
-    .input-row label {
-      color: var(--text-soft);
-    }
-
-    .input-row input,
-    .input-row select,
-    .input-row textarea {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 8px 10px;
-      font-size: 13px;
-      outline: none;
-      background: #fffdf9;
-    }
-
-    .input-row textarea {
-      border-radius: 14px;
-      resize: vertical;
-      min-height: 40px;
-    }
-
-    .input-row input:focus,
-    .input-row select:focus,
-    .input-row textarea:focus {
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(228, 140, 92, 0.35);
-    }
-
-    .radio-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .radio-pill {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      font-size: 12px;
-      cursor: pointer;
-      background: #fffdf9;
-    }
-
-    .radio-pill.active {
-      border-color: var(--accent-soft);
-      background: #fff6eb;
-      color: var(--accent-dark);
-      font-weight: 600;
-    }
-
-    .camera-box {
-      border-radius: 16px;
-      border: 1px dashed #d6c3b1;
-      background: #f7ebde;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .camera-view {
-      border-radius: 12px;
-      overflow: hidden;
-      background: #17130f;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f6f0e7;
-      font-size: 12px;
-      position: relative;
-    }
-
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .camera-placeholder {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .camera-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .camera-note {
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    .preview-img {
-      margin-top: 6px;
-      border-radius: 12px;
-      border: 1px solid var(--border-soft);
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .preview-img img {
-      width: 100%;
-      display: block;
-    }
-
-    .hint {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 4px;
-    }
-
-    .ai-output {
-      font-size: 13px;
-      line-height: 1.45;
-      margin-top: 6px;
-    }
-
-    .ai-output strong {
-      font-weight: 600;
-    }
-
-    .onboarding-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 30;
-    }
-
-    .onboarding-card {
-      width: 90%;
-      max-width: 360px;
       background: #fffaf4;
-      border-radius: 22px;
-      padding: 16px 16px 14px;
-      box-shadow: var(--shadow-soft);
+      color: #2b1d16;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
     }
 
-    .onboarding-step-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 4px;
+    .tab-btn.pro::after {
+      content: "PRO";
+      font-size: 7.5px;
+      padding: 1px 4px;
+      border-radius: 999px;
+      background: #e99f7e;
+      color: #fff;
+      margin-top: -1px;
     }
 
-    .onboarding-step-sub {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
+    .pill {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #fcefdc;
+      color: #aa5b33;
+      font-size: 9px;
     }
 
-    .onboarding-steps-dots {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 8px;
-    }
-
-    .onboarding-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 99px;
-      background: #e5d2c3;
-    }
-
-    .onboarding-dot.active {
-      width: 16px;
-      background: var(--accent);
-    }
-
-    .onboarding-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .profile-label {
-      color: var(--text-soft);
-    }
-
-    .profile-value {
-      font-weight: 500;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @media (min-width: 768px) {
-      .app {
-        max-width: 430px;
-        border-radius: 28px;
-        overflow: hidden;
-        box-shadow: 0 18px 50px rgba(0,0,0,0.22);
-        margin: 14px 0;
-      }
-      .tab-bar {
-        border-radius: 22px;
-      }
+    .center {
+      text-align: center;
     }
   </style>
 </head>
 <body>
-<div class="app">
-  <header id="appHeader"></header>
-  <main id="screen"></main>
-  <nav id="tabBar" class="tab-bar"></nav>
-</div>
-
-<!-- скрытый input для выбора фото из галереи -->
-<input type="file" id="imagePicker" accept="image/*" class="hidden" />
-
-<!-- онбординг -->
-<div id="onboardingOverlay" class="onboarding-overlay hidden"></div>
-
-<script>
-  const STORAGE_KEY = "areleI-app-v3";
-
-  let state = {
-    activeTab: "home",
-    profile: {
-      telegram: "",
-      age: "",
-      city: "",
-      purpose: ""
-    },
-    wardrobe: [],
-    isPro: false
-  };
-
-  let onboardingStep = 1;
-  let cameraStream = null;
-  let lastCapturedDataUrl = null;
-
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const saved = JSON.parse(raw);
-        state = {
-          ...state,
-          ...saved,
-          profile: { ...state.profile, ...(saved.profile || {}) },
-          wardrobe: saved.wardrobe || [],
-          isPro: !!saved.isPro
-        };
-      }
-    } catch (e) {
-      console.warn("Не удалось прочитать состояние", e);
-    }
-  }
-
-  function saveState() {
-    const toSave = {
-      profile: state.profile,
-      wardrobe: state.wardrobe,
-      isPro: state.isPro
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
-  }
-
-  function setActiveTab(tab) {
-    state.activeTab = tab;
-    render();
-  }
-
-  function render() {
-    renderHeader();
-    renderTabBar();
-    const screen = document.getElementById("screen");
-    if (!screen) return;
-
-    if (state.activeTab === "home") {
-      screen.innerHTML = renderHomeScreen();
-      attachHomeEvents();
-    } else if (state.activeTab === "wardrobe") {
-      screen.innerHTML = renderWardrobeScreen();
-      attachWardrobeEvents();
-    } else if (state.activeTab === "ar") {
-      screen.innerHTML = renderARScreen();
-      attachAREvents();
-    } else if (state.activeTab === "stylist") {
-      screen.innerHTML = renderStylistScreen();
-      attachStylistEvents();
-    } else if (state.activeTab === "profile") {
-      screen.innerHTML = renderProfileScreen();
-      attachProfileEvents();
-    }
-  }
-
-  function renderHeader() {
-    const header = document.getElementById("appHeader");
-    if (!header) return;
-
-    let title = "Главная";
-    if (state.activeTab === "wardrobe") title = "Гардероб";
-    if (state.activeTab === "ar") title = "AR-примерка";
-    if (state.activeTab === "stylist") title = "ИИ-стилист";
-    if (state.activeTab === "profile") title = "Профиль";
-
-    const cityText = state.profile.city || "Город не выбран";
-    let profileTop = state.profile.telegram ? "@" + state.profile.telegram.replace("@", "") : "Гость";
-
-    header.innerHTML = `
-      <div class="logo-block">
-        <div class="logo-dot">A</div>
-        <div class="logo-text">
-          <div class="logo-title">ARELEI</div>
-          <div class="logo-sub">${title}</div>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo-circle">A</div>
+        <div>
+          <div class="brand-text-title">
+            <span>👗</span> ARELEI
+          </div>
+          <div class="brand-text-sub">Умный гардероб с AR и ИИ-стилистом</div>
         </div>
       </div>
-      <div class="header-info">
-        <div class="header-city">📍 ${cityText}</div>
-        <div>${profileTop}</div>
+      <div class="tg-user">
+        <div class="tg-avatar" id="tgAvatar">A</div>
+        <div>
+          <div class="tg-name" id="tgName">Гость</div>
+          <div class="tg-tag">Telegram аккаунт</div>
+        </div>
       </div>
-    `;
-  }
+    </header>
 
-  function renderTabBar() {
-    const bar = document.getElementById("tabBar");
-    if (!bar) return;
-    const tabs = [
-      { id: "home", icon: "🏠", label: "Главная" },
-      { id: "wardrobe", icon: "👗", label: "Гардероб" },
-      { id: "ar", icon: "📱", label: "AR" },
-      { id: "stylist", icon: "🤖", label: "Стилиcт" },
-      { id: "profile", icon: "💎", label: "Профиль" }
-    ];
+    <div class="badge-status" id="statusBadge">
+      <div class="badge-dot"></div>
+      Free-план · ИИ-стилист доступен бесплатно 🤖
+    </div>
 
-    bar.innerHTML = tabs.map((t, idx) => {
-      const centerClass = idx === 2 ? "center" : "";
-      const active = state.activeTab === t.id ? "active" : "";
-      return `
-        <div class="tab-btn ${centerClass} ${active}" data-tab="${t.id}">
-          <div class="tab-icon-wrap"><span>${t.icon}</span></div>
-          <div class="tab-label">${t.label}</div>
+    <div id="screen">
+      Загрузка интерфейса...
+    </div>
+
+    <div class="bottom-nav">
+      <button class="tab-btn active" data-tab="home" onclick="setTab('home')">
+        <span class="icon">🏠</span>
+        <span>Главная</span>
+      </button>
+      <button class="tab-btn" data-tab="wardrobe" onclick="setTab('wardrobe')">
+        <span class="icon">👚</span>
+        <span>Гардероб</span>
+      </button>
+      <button class="tab-btn" data-tab="ar" onclick="setTab('ar')">
+        <span class="icon">📷</span>
+        <span>AR</span>
+      </button>
+      <button class="tab-btn" data-tab="stylist" onclick="setTab('stylist')">
+        <span class="icon">🤖</span>
+        <span>Стилист</span>
+      </button>
+      <button class="tab-btn pro" data-tab="pro" onclick="setTab('pro')">
+        <span class="icon">💎</span>
+        <span>PRO</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "arelei-data-v1";
+
+    const state = {
+      tab: "home",
+      pro: false,
+      clothes: [],
+      discounts: [
+        {
+          brand: "BrandX на OZON",
+          offer: "-15% на капсулу «Осень»",
+          note: "для PRO-подписчиков 🌟"
+        },
+        {
+          brand: "UrbanWear на Wildberries",
+          offer: "-10% на базовые джинсы",
+          note: "по рекомендации ИИ-стилиста 👖"
+        }
+      ]
+    };
+
+    let arStream = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (Array.isArray(data.clothes)) state.clothes = data.clothes;
+        if (typeof data.pro === "boolean") state.pro = data.pro;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ clothes: state.clothes, pro: state.pro })
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function setTab(tab) {
+      state.tab = tab;
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+      renderScreen();
+    }
+
+    function renderScreen() {
+      const root = document.getElementById("screen");
+      if (state.tab === "home") renderHome(root);
+      else if (state.tab === "wardrobe") renderWardrobe(root);
+      else if (state.tab === "ar") renderAR(root);
+      else if (state.tab === "stylist") renderStylist(root);
+      else if (state.tab === "pro") renderPro(root);
+    }
+
+    /* ---------- ГЛАВНАЯ ---------- */
+
+    function renderHome(root) {
+      const total = state.clothes.length;
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>✨</span> AI-стилист ARELEI</div>
+              <div class="card-sub">Создай образ под случай, погоду и настроение</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="setTab('stylist')">
+              Открыть стилиста
+            </button>
+          </div>
+
+          <div class="ai-block">
+            <div class="ai-label">Инсайты по гардеробу</div>
+            <div class="stat-row">
+              <div class="stat">
+                <div class="stat-label">Всего вещей</div>
+                <div class="stat-value">${total}</div>
+                <div class="stat-note">${total === 0 ? "пока пусто 👀" : "оцифровано 👕"}</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Образы</div>
+                <div class="stat-value">0</div>
+                <div class="stat-note">появятся после заполнения</div>
+              </div>
+            </div>
+            <div class="notes">
+              Сейчас инсайты обнулены. Добавь вещи во вкладке «Гардероб», и ARELEI начнёт строить статистику, подсказки и капсулы.
+            </div>
+          </div>
+
+          <div class="quick-row">
+            <div class="quick" onclick="setTab('wardrobe')">
+              <span class="icon">👚</span>
+              <span>Гардероб</span>
+            </div>
+            <div class="quick" onclick="setTab('ar')">
+              <span class="icon">📷</span>
+              <span>AR примерка</span>
+            </div>
+            <div class="quick" onclick="setTab('stylist')">
+              <span class="icon">🤖</span>
+              <span>ИИ-стилист</span>
+            </div>
+            <div class="quick" onclick="setTab('pro')">
+              <span class="icon">💎</span>
+              <span>PRO-функции</span>
+            </div>
+          </div>
         </div>
       `;
-    }).join("");
-
-    Array.from(bar.querySelectorAll(".tab-btn")).forEach(btn => {
-      btn.addEventListener("click", () => {
-        const tab = btn.dataset.tab;
-        setActiveTab(tab);
-      });
-    });
-  }
-
-  // ---------- ЭКРАН: ГЛАВНАЯ ----------
-
-  function renderHomeScreen() {
-    const wardrobeCount = state.wardrobe.length;
-    const oftenCount = state.wardrobe.filter(i => i.context === "часто").length;
-    const rarelyCount = state.wardrobe.filter(i => i.context === "редко").length;
-
-    const insightsEmpty = wardrobeCount === 0;
-
-    const purposeText = state.profile.purpose || "оптимизировать гардероб и экономить время на выборе одежды";
-
-    return `
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">Привет, ${state.profile.telegram ? state.profile.telegram.replace("@", "") : "гость"} 👋</div>
-            <div class="card-sub">ARELEI поможет ${purposeText}.</div>
-          </div>
-          <div>
-            <span class="pill pill-small">Free · ИИ-стилист</span>
-          </div>
-        </div>
-        <div class="chips-row">
-          <button class="btn btn-sm btn-primary" id="btnOpenStylistHome">✨ Подобрать образ</button>
-          <button class="btn btn-sm btn-outline" id="btnOpenWardrobeHome">👗 Оцифровать вещи</button>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="section-title-row">
-          <div class="section-title">AI-стилист</div>
-          <div class="section-link" id="linkOpenStylistFull">Открыть полностью →</div>
-        </div>
-        <div class="chips-row">
-          <span class="pill">Школа / учёба</span>
-          <span class="pill">Работа</span>
-          <span class="pill">Прогулка</span>
-          <span class="pill">Мероприятие</span>
-        </div>
-        <div class="hint">Нажми «Подобрать образ» сверху — стилист учтёт твой город, возраст и вещи из гардероба.</div>
-      </section>
-
-      <section class="card">
-        <div class="section-title-row">
-          <div class="section-title">Инсайты по гардеробу</div>
-          <div class="section-link" id="linkOpenWardrobeInsights">Перейти в гардероб</div>
-        </div>
-        ${insightsEmpty ? `
-          <div class="empty-text">
-            Пока вещей нет. Добавь хотя бы одну вещь, и ARELEI начнёт считать статистику: что носишь чаще,
-            что можно продать или отдать ♻️
-          </div>
-          <button class="btn btn-primary btn-full" id="btnAddFirstItemHome">+ Добавить первую вещь</button>
-        ` : `
-          <div class="insights-row">
-            <div class="insight-box">
-              <div class="insight-label">Всего вещей в гардеробе</div>
-              <div class="insight-value">${wardrobeCount}</div>
-              <div class="insight-note">оцифровано в ARELEI</div>
-            </div>
-            <div class="insight-box">
-              <div class="insight-label">Часто носишь</div>
-              <div class="insight-value">${oftenCount}</div>
-              <div class="insight-note">ядро капсулы</div>
-            </div>
-            <div class="insight-box">
-              <div class="insight-label">Почти не носишь</div>
-              <div class="insight-value">${rarelyCount}</div>
-              <div class="insight-note">можно продать / отдать</div>
-            </div>
-            <div class="insight-box">
-              <div class="insight-label">AR-примерка</div>
-              <div class="insight-value">готова</div>
-              <div class="insight-note">камера включается по запросу</div>
-            </div>
-          </div>
-        `}
-      </section>
-    `;
-  }
-
-  function attachHomeEvents() {
-    const btnStylist = document.getElementById("btnOpenStylistHome");
-    if (btnStylist) btnStylist.addEventListener("click", () => setActiveTab("stylist"));
-
-    const btnWardrobe = document.getElementById("btnOpenWardrobeHome");
-    if (btnWardrobe) btnWardrobe.addEventListener("click", () => setActiveTab("wardrobe"));
-
-    const linkStylist = document.getElementById("linkOpenStylistFull");
-    if (linkStylist) linkStylist.addEventListener("click", () => setActiveTab("stylist"));
-
-    const linkWardrobe = document.getElementById("linkOpenWardrobeInsights");
-    if (linkWardrobe) linkWardrobe.addEventListener("click", () => setActiveTab("wardrobe"));
-
-    const btnAddFirst = document.getElementById("btnAddFirstItemHome");
-    if (btnAddFirst) btnAddFirst.addEventListener("click", handleAddWardrobeItem);
-  }
-
-  // ---------- ЭКРАН: ГАРДЕРОБ ----------
-
-  function renderWardrobeScreen() {
-    const hasItems = state.wardrobe.length > 0;
-
-    const itemsHtml = state.wardrobe.map(item => `
-      <div class="wardrobe-item" data-id="${item.id}">
-        <div class="wardrobe-thumb">
-          ${item.image ? `<img src="${item.image}" alt="">` : "👕"}
-        </div>
-        <div class="wardrobe-main">
-          <div class="wardrobe-name">${item.name}</div>
-          <div class="wardrobe-meta">${item.category} · ${item.season} · ${item.when}</div>
-          <div class="wardrobe-tags">
-            <span class="pill pill-small">${item.usage}</span>
-            ${item.isBase ? '<span class="pill pill-small">база</span>' : ""}
-          </div>
-        </div>
-        <div class="wardrobe-actions">
-          <button class="btn btn-sm btn-outline jsMarkOften">чаще</button>
-          <button class="btn btn-sm btn-outline jsMarkRare">редко</button>
-          <button class="btn btn-sm btn-danger jsDeleteItem">✕</button>
-        </div>
-      </div>
-    `).join("");
-
-    return `
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">Мой цифровой гардероб 👗</div>
-            <div class="card-sub">Добавляй вещи по сезону и поводу, чтобы стилист знал, что у тебя есть.</div>
-          </div>
-          <button class="btn btn-sm btn-primary" id="btnAddItemWardrobe">+ Вещь</button>
-        </div>
-        ${hasItems ? `
-          <div class="chips-row">
-            <span class="pill">фильтры можно добавить позже</span>
-          </div>
-          <div class="wardrobe-list">${itemsHtml}</div>
-          <div class="hint">Удалить вещь — нажми красный крестик. Статус «чаще / редко» влияет на рекомендации ИИ-стилиста.</div>
-        ` : `
-          <div class="empty-text">
-            Здесь пока пусто. Нажми «+ Вещь», чтобы добавить первую вещь: выбери сезон, повод и категорию.
-          </div>
-        `}
-      </section>
-      <section class="card">
-        <div class="card-title">Как ARELEI использует гардероб</div>
-        <div class="card-sub">
-          Вещи из этого списка попадают в ИИ-стилиста: он не будет предлагать то, чего у тебя нет, и
-          предложит, что можно докупить через маркетплейсы.
-        </div>
-      </section>
-    `;
-  }
-
-  function attachWardrobeEvents() {
-    const btnAdd = document.getElementById("btnAddItemWardrobe");
-    if (btnAdd) btnAdd.addEventListener("click", handleAddWardrobeItem);
-
-    document.querySelectorAll(".wardrobe-item").forEach(el => {
-      const id = el.dataset.id;
-      const btnDel = el.querySelector(".jsDeleteItem");
-      const btnOften = el.querySelector(".jsMarkOften");
-      const btnRare = el.querySelector(".jsMarkRare");
-
-      if (btnDel) btnDel.addEventListener("click", () => {
-        const confirmed = confirm("Удалить вещь из гардероба?");
-        if (!confirmed) return;
-        state.wardrobe = state.wardrobe.filter(i => String(i.id) !== String(id));
-        saveState();
-        render();
-      });
-
-      if (btnOften) btnOften.addEventListener("click", () => {
-        const item = state.wardrobe.find(i => String(i.id) === String(id));
-        if (!item) return;
-        item.context = "часто";
-        saveState();
-        render();
-      });
-
-      if (btnRare) btnRare.addEventListener("click", () => {
-        const item = state.wardrobe.find(i => String(i.id) === String(id));
-        if (!item) return;
-        item.context = "редко";
-        saveState();
-        render();
-      });
-    });
-  }
-
-  function handleAddWardrobeItem() {
-    const name = prompt("Название вещи (например: белая рубашка):");
-    if (!name) return;
-    const category = prompt("Категория (верх / низ / обувь / аксессуар):", "верх") || "верх";
-    const season = prompt("Сезон (зима / весна / лето / осень / круглый год):", "круглый год") || "круглый год";
-    const when = prompt("Когда чаще всего носишь? (школа / универ / работа / прогулка / спорт / мероприятия):", "школа") || "школа";
-    const usage = prompt("Для чего эта вещь? (база / нарядная / комфорт / спорт и тд):", "база") || "база";
-
-    const newItem = {
-      id: Date.now(),
-      name,
-      category,
-      season,
-      when,
-      usage,
-      context: "часто",
-      isBase: usage.toLowerCase().includes("база"),
-      image: lastCapturedDataUrl || null
-    };
-
-    state.wardrobe.push(newItem);
-    saveState();
-    alert("Вещь добавлена в гардероб ✅");
-    render();
-  }
-
-  // ---------- ЭКРАН: AR ----------
-
-  function renderARScreen() {
-    return `
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">AR-примерочная 📱</div>
-            <div class="card-sub">Снимай вещи на камеру или загружай из галереи, чтобы примерять их в ARELEI.</div>
-          </div>
-        </div>
-        <div class="camera-box">
-          <div class="camera-view">
-            <video id="cameraVideo" autoplay playsinline class="hidden"></video>
-            <div id="cameraPlaceholder" class="camera-placeholder">
-              <div>Камера пока выключена.</div>
-              <div>Нажми «Включить камеру», чтобы увидеть себя и примерить вещи.</div>
-            </div>
-          </div>
-          <div class="camera-buttons">
-            <button class="btn btn-sm btn-primary" id="btnStartCamera">Включить камеру</button>
-            <button class="btn btn-sm btn-outline" id="btnStopCamera">Выключить</button>
-            <button class="btn btn-sm btn-outline" id="btnTakePhoto" disabled>📸 Сделать фото</button>
-            <button class="btn btn-sm btn-outline" id="btnPickFromGallery">🖼 Из галереи</button>
-          </div>
-          <div class="camera-note">
-            В учебной версии фон не вырезается ИИ, но ты можешь описать в проекте, что в боевой версии будет
-            использоваться модель для удаления фона и примерки на 3D-фигурку.
-          </div>
-          <div class="preview-img hidden" id="photoPreview">
-            <img id="photoPreviewImg" alt="предпросмотр">
-          </div>
-          <button class="btn btn-sm btn-primary btn-full hidden" id="btnSaveToWardrobe">Добавить как вещь в гардероб</button>
-        </div>
-        <div class="hint">
-          <strong>3D-прототип:</strong> в описании проекта напиши, что поверх фото можно будет строить
-          простую 3D-фигуру человека и «натягивать» на неё одежду.
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-title">Покупки через маркетплейсы 🛍</div>
-        <div class="card-sub">
-          ARELEI может предлагать вещи под твой стиль и город, а дальше открывать карточку товара на Ozon
-          или Wildberries.
-        </div>
-        <div class="chips-row">
-          <span class="pill">скидка для PRO-подписки</span>
-          <span class="pill">подбор по цветотипу</span>
-        </div>
-        <div class="hint">
-          В реальном приложении сюда можно подгружать ссылки из партнёрских магазинов и считать комиссию с каждой покупки.
-        </div>
-      </section>
-    `;
-  }
-
-  function attachAREvents() {
-    const btnStart = document.getElementById("btnStartCamera");
-    const btnStop = document.getElementById("btnStopCamera");
-    const btnTake = document.getElementById("btnTakePhoto");
-    const btnPick = document.getElementById("btnPickFromGallery");
-    const btnSave = document.getElementById("btnSaveToWardrobe");
-    const picker = document.getElementById("imagePicker");
-
-    if (btnStart) btnStart.addEventListener("click", startCamera);
-    if (btnStop) btnStop.addEventListener("click", stopCamera);
-    if (btnTake) btnTake.addEventListener("click", takePhoto);
-    if (btnPick && picker) {
-      btnPick.addEventListener("click", () => picker.click());
-      picker.onchange = handlePickFromGallery;
     }
-    if (btnSave) btnSave.addEventListener("click", () => {
-      if (!lastCapturedDataUrl) return;
-      const name = prompt("Название вещи (например: худи с принтом):") || "Новая вещь";
-      const newItem = {
-        id: Date.now(),
-        name,
-        category: "верх",
-        season: "круглый год",
-        when: "повседневно",
-        usage: "база",
-        context: "часто",
-        isBase: true,
-        image: lastCapturedDataUrl
+
+    /* ---------- ГАРДЕРОБ ---------- */
+
+    function renderWardrobe(root) {
+      const items = state.clothes;
+      const list =
+        items.length === 0
+          ? `<div class="notes">Гардероб пока пуст. Сделай фото вещи во вкладке AR или добавь вручную.</div>`
+          : items
+              .map(
+                (c, i) => `
+              <div class="clothes-item">
+                <img class="item-image" src="${c.img}" alt="${c.name}" />
+                <div class="clothes-main">
+                  <div class="clothes-name">${c.name}</div>
+                  <div class="clothes-meta">${c.type || ""} · ${c.season || ""}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;">
+                    <span class="badge">${
+                      c.usage === "редко" ? "почти не носишь 😴" : "нормально носишь 💚"
+                    }</span>
+                    ${
+                      c.season
+                        ? `<span class="chip">${c.season}</span>`
+                        : ""
+                    }
+                    ${
+                      c.tags && c.tags.length
+                        ? c.tags.map(t => `<span class="chip">${t}</span>`).join("")
+                        : ""
+                    }
+                  </div>
+                </div>
+                <button class="btn btn-ghost btn-sm" style="padding:4px 7px;font-size:9px;"
+                  onclick="deleteClothes(${i})">
+                  ✕
+                </button>
+              </div>
+            `
+              )
+              .join("");
+
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>👚</span> Мой гардероб</div>
+              <div class="card-sub">Храни вещи в цифровом виде</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="addClothesManual()">
+              + Добавить
+            </button>
+          </div>
+          ${list}
+        </div>
+      `;
+    }
+
+    function addClothesManual() {
+      const name = prompt("Название вещи:", "Новая вещь");
+      if (!name) return;
+      const type = prompt("Тип (верх, низ, платье...):", "верх");
+      const season = prompt("Сезон (зима, лето, круглый год...):", "круглый год");
+      const usage = prompt("Как часто носишь? (часто / средне / редко):", "средне");
+      const tagsRaw = prompt("Теги через запятую (школа, прогулка...):", "школа");
+      const tags = tagsRaw
+        ? tagsRaw
+            .split(",")
+            .map(t => t.trim())
+            .filter(Boolean)
+        : [];
+      const item = {
+        name: name,
+        type: type || "",
+        season: season || "",
+        usage: usage || "средне",
+        tags: tags,
+        img:
+          "https://images.pexels.com/photos/7697329/pexels-photo-7697329.jpeg?auto=compress&cs=tinysrgb&w=400"
       };
-      state.wardrobe.push(newItem);
+      state.clothes.unshift(item);
       saveState();
-      alert("Вещь добавлена в гардероб ✅");
-      setActiveTab("wardrobe");
-    });
-  }
+      renderScreen();
+    }
 
-  async function startCamera() {
-    const video = document.getElementById("cameraVideo");
-    const placeholder = document.getElementById("cameraPlaceholder");
-    const takeBtn = document.getElementById("btnTakePhoto");
+    function deleteClothes(index) {
+      if (!confirm("Удалить эту вещь из гардероба?")) return;
+      state.clothes.splice(index, 1);
+      saveState();
+      renderScreen();
+    }
 
-    try {
-      cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-      if (video) {
-        video.srcObject = cameraStream;
-        video.classList.remove("hidden");
+    function addClothesFromPhoto(name, dataUrl) {
+      const item = {
+        name: name,
+        type: "не указан",
+        season: "",
+        usage: "новая",
+        tags: ["добавлено через AR"],
+        img: dataUrl
+      };
+      state.clothes.unshift(item);
+      saveState();
+    }
+
+    /* ---------- AR ---------- */
+
+    function renderAR(root) {
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>📷</span> AR-примерка</div>
+              <div class="card-sub">Камера + добавление вещей в гардероб</div>
+            </div>
+          </div>
+
+          <video id="arCamera" class="ar-video" autoplay playsinline muted></video>
+          <canvas id="arSnapshot" class="ar-photo" style="display:none;margin-top:6px;"></canvas>
+
+          <div class="upload-row">
+            <button class="btn btn-primary btn-sm" onclick="startCamera()">Включить камеру</button>
+            <button class="btn btn-ghost btn-sm" onclick="takePhoto()">Сделать фото</button>
+            <button class="btn btn-ghost btn-sm" onclick="stopCamera()">Выключить</button>
+          </div>
+
+          <div class="upload-row">
+            <input type="file" accept="image/*" id="fileInput" />
+            <button class="btn btn-ghost btn-sm" onclick="addFromGallery()">Из галереи</button>
+          </div>
+
+          <div class="notes">
+            В реальном приложении фото вещи обрабатывается ИИ: вырезается фон, вещь ставится на белый фон
+            и используется для примерки. Здесь мы эмулируем этот процесс и просто кладём фото в гардероб.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>🛍️</span> Покупки через маркетплейсы</div>
+              <div class="card-sub">Партнёрские предложения под твой стиль</div>
+            </div>
+          </div>
+          <div class="discounts">
+            ${state.discounts
+              .map(
+                (d, i) => `
+              <div class="discount-card" onclick="openPartner(${i})">
+                <div>
+                  <div class="discount-brand">${d.brand}</div>
+                  <div class="discount-info">${d.offer}</div>
+                  <div class="notes">${d.note}</div>
+                </div>
+                <span class="badge-link">перейти</span>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function openPartner(index) {
+      const d = state.discounts[index];
+      alert(
+        d.brand +
+          "\\n\\n" +
+          d.offer +
+          "\\n\\nВ боевой версии ARELEI откроет карточку товара на OZON / Wildberries с UTM-метками."
+      );
+    }
+
+    async function startCamera() {
+      try {
+        const video = document.getElementById("arCamera");
+        if (!video) return;
+        arStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" }
+        });
+        video.srcObject = arStream;
+      } catch (e) {
+        alert("Не удалось включить камеру. Проверь разрешения.");
+        console.error(e);
       }
-      if (placeholder) placeholder.classList.add("hidden");
-      if (takeBtn) takeBtn.disabled = false;
-    } catch (e) {
-      alert("Не удалось открыть камеру. Разреши доступ в браузере.");
     }
-  }
 
-  function stopCamera() {
-    const video = document.getElementById("cameraVideo");
-    const placeholder = document.getElementById("cameraPlaceholder");
-    const takeBtn = document.getElementById("btnTakePhoto");
-
-    if (cameraStream) {
-      cameraStream.getTracks().forEach(t => t.stop());
-      cameraStream = null;
+    function stopCamera() {
+      if (arStream) {
+        arStream.getTracks().forEach(t => t.stop());
+        arStream = null;
+      }
     }
-    if (video) {
-      video.srcObject = null;
-      video.classList.add("hidden");
+
+    function takePhoto() {
+      const video = document.getElementById("arCamera");
+      const canvas = document.getElementById("arSnapshot");
+      if (!video || !canvas) return;
+      if (!video.videoWidth || !video.videoHeight) {
+        alert("Сначала включи камеру 🙂");
+        return;
+      }
+      const w = video.videoWidth;
+      const h = video.videoHeight;
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, w, h);
+      canvas.style.display = "block";
+
+      const save = confirm("Сохранить фото как новую вещь?");
+      if (!save) return;
+      const name = prompt("Как назовём эту вещь?", "Новая вещь");
+      if (!name) return;
+      const dataUrl = canvas.toDataURL("image/jpeg");
+      addClothesFromPhoto(name, dataUrl);
+      alert("Вещь сохранена в гардероб. Открой вкладку «Гардероб», чтобы её увидеть.");
     }
-    if (placeholder) placeholder.classList.remove("hidden");
-    if (takeBtn) takeBtn.disabled = true;
-  }
 
-  function takePhoto() {
-    const video = document.getElementById("cameraVideo");
-    if (!video || !cameraStream) return;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth || 720;
-    canvas.height = video.videoHeight || 1280;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    lastCapturedDataUrl = canvas.toDataURL("image/png");
-
-    showPhotoPreview(lastCapturedDataUrl);
-  }
-
-  function handlePickFromGallery(evt) {
-    const file = evt.target.files && evt.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      lastCapturedDataUrl = e.target.result;
-      showPhotoPreview(lastCapturedDataUrl);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function showPhotoPreview(dataUrl) {
-    const preview = document.getElementById("photoPreview");
-    const img = document.getElementById("photoPreviewImg");
-    const btnSave = document.getElementById("btnSaveToWardrobe");
-    if (preview && img) {
-      img.src = dataUrl;
-      preview.classList.remove("hidden");
+    function addFromGallery() {
+      const input = document.getElementById("fileInput");
+      if (!input || !input.files || !input.files[0]) {
+        alert("Выбери фото из галереи.");
+        return;
+      }
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const name = prompt("Название вещи для этого фото:", "Вещь с фото");
+        if (!name) return;
+        const dataUrl = e.target.result;
+        addClothesFromPhoto(name, dataUrl);
+        alert("Фото добавлено как вещь в гардероб.");
+      };
+      reader.readAsDataURL(file);
     }
-    if (btnSave) btnSave.classList.remove("hidden");
-  }
 
-  // ---------- ЭКРАН: СТИЛИСТ ----------
+    /* ---------- ИИ-СТИЛИСТ (заглушка под GPT) ---------- */
 
-  function renderStylistScreen() {
-    const age = state.profile.age || "возраст не указан";
-    const city = state.profile.city || "город не выбран";
+    function renderStylist(root) {
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>🤖</span> ИИ-стилист</div>
+              <div class="card-sub">Подбор образа под повод и погоду</div>
+            </div>
+          </div>
+          <div class="inputs">
+            <div>
+              <label for="eventSelect">Повод</label>
+              <select id="eventSelect">
+                <option value="school">Школа / колледж</option>
+                <option value="work">Работа / офис</option>
+                <option value="walk">Прогулка</option>
+                <option value="party">Вечеринка</option>
+                <option value="date">Свидание</option>
+              </select>
+            </div>
+            <div>
+              <label for="weatherSelect">Погода</label>
+              <select id="weatherSelect">
+                <option value="cool">Прохладно (+5…+10°)</option>
+                <option value="warm">Тепло (+15…+22°)</option>
+                <option value="hot">Жарко (+25° и выше)</option>
+              </select>
+            </div>
+            <div>
+              <label for="styleInput">Как хочешь выглядеть?</label>
+              <input id="styleInput" type="text" placeholder="минимализм, ярко, по-деловому..." />
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="generateOutfit()">
+            Подобрать образ ✨
+          </button>
 
-    return `
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">ИИ-стилист ARELEI 🤖</div>
-            <div class="card-sub">
-              Бесплатно подбирает образы под твой возраст (${age}), город (${city}) и вещи из гардероба.
+          <div id="stylistResult" class="ai-block" style="margin-top:6px;">
+            <div class="ai-label">Пример результата</div>
+            <div class="ai-title"><span>✨</span> Образ по умолчанию</div>
+            <div class="ai-text">
+              Для школы и прохладной погоды: белая рубашка, прямые джинсы, белые кроссовки и при необходимости жакет.
+            </div>
+            <div class="ai-tags">
+              <span class="ai-tag">дресс-код</span>
+              <span class="ai-tag">комфорт</span>
             </div>
           </div>
         </div>
-        <div class="input-row">
-          <label for="occasionSelect">Повод</label>
-          <select id="occasionSelect">
-            <option value="школа">Школа / лицей</option>
-            <option value="учеба">Колледж / универ</option>
-            <option value="работа">Работа / стажировка</option>
-            <option value="прогулка">Прогулка / встреча с друзьями</option>
-            <option value="свидание">Свидание / мероприятие</option>
-          </select>
-        </div>
-        <div class="input-row">
-          <label for="moodInput">Как ты хочешь выглядеть? 😎</label>
-          <input id="moodInput" placeholder="минимализм, мягко, по-деловому, ярко и т.д.">
-        </div>
-        <div class="input-row">
-          <label for="weatherInput">Погода (можно оставить по умолчанию)</label>
-          <input id="weatherInput" placeholder="например: +8°, прохладно, возможен дождь">
-        </div>
-        <button class="btn btn-primary btn-full" id="btnGenerateLook">✨ Подобрать образ</button>
-        <div class="hint">
-          В реальном приложении здесь можно использовать GPT-4.1-mini: он будет анализировать гардероб и подбирать образы.
-        </div>
-        <div id="aiResult" class="ai-output"></div>
-      </section>
 
-      <section class="card">
-        <div class="card-title">PRO-аналитика внешности 💄 (399 ₽ / месяц)</div>
-        <div class="card-sub">
-          По подписке ARELEI сможет:
-        </div>
-        <ul style="margin:6px 0 8px 18px; padding:0; font-size:12px; color:var(--text-soft);">
-          <li>анализировать цветотип и рекомендовать палитру вещей;</li>
-          <li>подбирать макияж под школу, мероприятия и фото;</li>
-          <li>предлагать варианты причёски и длину волос с AR-примеркой;</li>
-          <li>строить недельный план образов с учётом погоды и расписания.</li>
-        </ul>
-        <button class="btn btn-primary btn-full" id="btnGoProFromStylist">Оформить PRO 399 ₽</button>
-      </section>
-    `;
-  }
-
-  function attachStylistEvents() {
-    const btn = document.getElementById("btnGenerateLook");
-    const btnPro = document.getElementById("btnGoProFromStylist");
-
-    if (btn) {
-      btn.addEventListener("click", async () => {
-        const occasion = document.getElementById("occasionSelect").value;
-        const mood = document.getElementById("moodInput").value || "комфортно и аккуратно";
-        const weather = document.getElementById("weatherInput").value || "погода не указана";
-        const out = document.getElementById("aiResult");
-
-        if (out) out.innerHTML = "Думаю над образом… ⏳";
-
-        const suggestion = await generateAiLookSuggestion({ occasion, mood, weather });
-        if (out) out.innerHTML = suggestion;
-      });
-    }
-
-    if (btnPro) btnPro.addEventListener("click", () => setActiveTab("profile"));
-  }
-
-  async function generateAiLookSuggestion(options) {
-    const context = buildStylistContext(options);
-
-    // 1) здесь будет настоящий вызов GPT через ваш backend
-    // Пример (НЕ ЗАРАБОТАЕТ пока вы не сделаете свой сервер):
-    //
-    // const response = await fetch("https://ВАШ-БЭКЕНД/stylist", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ context })
-    // });
-    // const data = await response.json();
-    // return data.text;
-
-    // 2) учебный локальный "ИИ", чтобы всё работало на защите проекта:
-    const baseItems = state.wardrobe.filter(i => i.context === "часто");
-    const shoes = baseItems.find(i => i.category === "обувь");
-    const top = baseItems.find(i => i.category === "верх");
-    const bottom = baseItems.find(i => i.category === "низ");
-
-    let text = `<strong>Образ для: ${options.occasion}</strong><br>`;
-    text += `Настроение: ${options.mood}. Погода: ${options.weather}.<br><br>`;
-
-    if (baseItems.length === 0) {
-      text += "Пока в гардеробе нет вещей, поэтому я предлагаю базовый образ: светлый верх, тёмные джинсы и удобные кроссовки. Когда ты добавишь вещи в гардероб, стилист начнёт подбирать образы именно из них.`;
-    } else {
-      text += "Я собрал образ из того, что у тебя уже есть:<br>";
-      if (top) text += `• верх: <strong>${top.name}</strong><br>`;
-      if (bottom) text += `• низ: <strong>${bottom.name}</strong><br>`;
-      if (shoes) text += `• обувь: <strong>${shoes.name}</strong><br>`;
-      text += "<br>Если прохладно — добавь тёплый слой (худи или жакет). Можешь сохранить этот образ как «наряд дня».";
-    }
-
-    return text;
-  }
-
-  function buildStylistContext(options) {
-    return {
-      profile: state.profile,
-      wardrobe: state.wardrobe,
-      request: options
-    };
-  }
-
-  // ---------- ЭКРАН: ПРОФИЛЬ / PRO ----------
-
-  function renderProfileScreen() {
-    const proText = state.isPro ? "активна" : "не активна";
-    const proBadge = state.isPro ? "✅ активна" : "⚪ можно подключить";
-
-    return `
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">Профиль пользователя 👤</div>
-            <div class="card-sub">Привязка к Telegram и данные для ИИ-стилиста.</div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>🎨</span> Анализ цветотипа (PRO)</div>
+              <div class="card-sub">Будет работать, когда подключишь GPT и бэкенд</div>
+            </div>
+            <span class="pill">по подписке</span>
           </div>
-          <button class="btn btn-sm btn-outline" id="btnEditProfile">изменить</button>
-        </div>
-        <div class="profile-row">
-          <div class="profile-label">Telegram</div>
-          <div class="profile-value">${state.profile.telegram || "не указан"}</div>
-        </div>
-        <div class="profile-row">
-          <div class="profile-label">Возраст</div>
-          <div class="profile-value">${state.profile.age || "не указан"}</div>
-        </div>
-        <div class="profile-row">
-          <div class="profile-label">Город</div>
-          <div class="profile-value">${state.profile.city || "не указан"}</div>
-        </div>
-        <div class="profile-row">
-          <div class="profile-label">Зачем приложение</div>
-          <div class="profile-value">${state.profile.purpose || "не указано"}</div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="card-title">PRO-подписка ARELEI 💎</div>
-            <div class="card-sub">399 ₽ в месяц · продвинутый анализ + скидки партнёров.</div>
+          <div class="notes">
+            Здесь можно будет вызывать GPT через твой сервер и рассчитывать цветотип, макияж, причёску и капсулы.
           </div>
         </div>
-        <div class="profile-row">
-          <div class="profile-label">Статус PRO</div>
-          <div class="profile-value">${proBadge}</div>
-        </div>
-        <div class="chips-row">
-          <span class="pill badge-pro">анализ цветотипа</span>
-          <span class="pill badge-pro">подбор макияжа</span>
-          <span class="pill badge-pro">AR-причёска</span>
-          <span class="pill badge-pro">расширенный план образов</span>
-        </div>
-        <button class="btn btn-primary btn-full" id="btnPayPro">Оплатить 399 ₽</button>
-        <div class="hint">
-          В учебном проекте эта кнопка может вести на Telegram-бота, который принимает оплату через встроенные платежи.
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-title">Чем ARELEI лучше конкурентов</div>
-        <div class="card-sub">
-          Кратко, что можно сказать на защите:
-        </div>
-        <ul style="margin:6px 0 0 18px; padding:0; font-size:12px; color:var(--text-soft);">
-          <li>ARELEI объединяет <strong>гардероб + AR-примерку + ИИ-стилиста</strong> в одном приложении;</li>
-          <li>есть <strong>бесплатный</strong> ИИ-стилист и <strong>PRO-функции</strong> (цветотип, макияж, причёска);</li>
-          <li>интеграция с маркетплейсами (Ozon, Wildberries) даёт возможность получать скидки и комиссию с продаж;</li>
-          <li>ориентация на подростков и молодых людей: школа, универ, первая работа — конкуренты обычно делают «взрослые» приложения.</li>
-        </ul>
-      </section>
-    `;
-  }
-
-  function attachProfileEvents() {
-    const btnEdit = document.getElementById("btnEditProfile");
-    const btnPay = document.getElementById("btnPayPro");
-
-    if (btnEdit) btnEdit.addEventListener("click", showOnboarding);
-    if (btnPay) btnPay.addEventListener("click", handleProPaymentClick);
-  }
-
-  function handleProPaymentClick() {
-    alert("В учебной версии оплата настоящая не подключена.\n\nТы можешь сделать Telegram-бота с оплатой и указать здесь его ссылку.");
-    // Пример: window.open("https://t.me/ARELEI_pro_bot", "_blank");
-  }
-
-  // ---------- ОНБОРДИНГ ----------
-
-  function showOnboarding() {
-    onboardingStep = 1;
-    updateOnboarding();
-    document.getElementById("onboardingOverlay").classList.remove("hidden");
-  }
-
-  function hideOnboarding() {
-    document.getElementById("onboardingOverlay").classList.add("hidden");
-  }
-
-  function updateOnboarding() {
-    const overlay = document.getElementById("onboardingOverlay");
-    if (!overlay) return;
-
-    const dots = [1,2,3].map(step => `
-      <div class="onboarding-dot ${onboardingStep === step ? "active" : ""}"></div>
-    `).join("");
-
-    let content = "";
-    if (onboardingStep === 1) {
-      content = `
-        <div class="onboarding-step-title">Привязка Telegram</div>
-        <div class="onboarding-step-sub">
-          Укажи свой @username, чтобы каждый пользователь имел свой гардероб.
-        </div>
-        <div class="input-row">
-          <label for="obTelegram">Ник в Telegram</label>
-          <input id="obTelegram" placeholder="@арина">
-        </div>
-        <div class="onboarding-actions">
-          <button class="btn btn-primary btn-full" id="btnNextOnboarding">Далее →</button>
-        </div>
       `;
-    } else if (onboardingStep === 2) {
-      content = `
-        <div class="onboarding-step-title">Возраст и город</div>
-        <div class="onboarding-step-sub">
-          Это нужно, чтобы стилист понимал: школа, колледж или работа, и какая у тебя погода.
-        </div>
-        <div class="input-row">
-          <label for="obAge">Сколько тебе лет?</label>
-          <input id="obAge" type="number" min="7" max="90" placeholder="например, 15">
-        </div>
-        <div class="input-row">
-          <label for="obCity">Город</label>
-          <input id="obCity" placeholder="Москва, Нижний Новгород и т.д.">
-        </div>
-        <div class="onboarding-actions">
-          <button class="btn btn-outline" id="btnPrevOnboarding">← Назад</button>
-          <button class="btn btn-primary" id="btnNextOnboarding">Далее →</button>
-        </div>
-      `;
-    } else if (onboardingStep === 3) {
-      content = `
-        <div class="onboarding-step-title">Зачем тебе ARELEI?</div>
-        <div class="onboarding-step-sub">
-          Выбери основную цель — её можно будет поменять позже.
-        </div>
-        <div class="radio-row" id="obPurposeRadios">
-          <div class="radio-pill" data-value="оптимизировать гардероб">Оптимизировать гардероб</div>
-          <div class="radio-pill" data-value="быстро подбирать образы на каждый день">Быстро подбирать образы</div>
-          <div class="radio-pill" data-value="готовиться к мероприятиям и фотосессиям">Мероприятия и фото</div>
-          <div class="radio-pill" data-value="экономить деньги и покупать только нужное">Экономить на покупках</div>
-        </div>
-        <div class="onboarding-actions">
-          <button class="btn btn-outline" id="btnPrevOnboarding">← Назад</button>
-          <button class="btn btn-primary" id="btnFinishOnboarding">Готово</button>
+    }
+
+    function generateOutfit() {
+      const event = document.getElementById("eventSelect").value;
+      const weather = document.getElementById("weatherSelect").value;
+      const styleWish = document.getElementById("styleInput").value.trim();
+      const result = document.getElementById("stylistResult");
+
+      let text = "";
+      let tags = [];
+
+      if (event === "school") {
+        if (weather === "cool") {
+          text =
+            "Для школы и прохладной погоды: базовая рубашка, прямые джинсы, кроссовки и при необходимости жакет.";
+          tags = ["школа", "слоистость", "комфорт"];
+        } else if (weather === "warm") {
+          text =
+            "Тёплая погода и школа: лёгкая рубашка или футболка, прямые джинсы и аккуратные кроссовки без лишних слоёв.";
+          tags = ["минимализм", "дресс-код"];
+        } else {
+          text =
+            "Жарко и дресс-код: светлая хлопковая рубашка или платье без лишних деталей, удобная обувь.";
+          tags = ["жара", "натуральные ткани"];
+        }
+      } else if (event === "work") {
+        text =
+          "Для работы: строгий верх (рубашка или трикотаж), прямые брюки или джинсы тёмного цвета, закрытая обувь. Можно добавить жакет.";
+        tags = ["офис", "по-деловому"];
+      } else if (event === "walk") {
+        text =
+          "Для прогулки: удобный свитшот или худи, джинсы/брюки свободного кроя и кроссовки. Можно добавить бейсболку и рюкзак.";
+        tags = ["casual", "комфорт"];
+      } else if (event === "party") {
+        text =
+          "На вечеринку: платье или яркий верх + базовый низ, акцентная обувь и сумка. Добавь аксессуары.";
+        tags = ["вечеринка", "акцент"];
+      } else if (event === "date") {
+        text =
+          "На свидание: мягкий свитер или топ в приятном оттенке, юбка или джинсы и аккуратные ботинки или кроссовки.";
+        tags = ["романтика", "мягкие оттенки"];
+      }
+
+      if (styleWish) {
+        text += " Учитываю твоё пожелание: «" + styleWish + "».";
+        tags.push(styleWish);
+      }
+
+      result.innerHTML = `
+        <div class="ai-label">Рекомендация стилиста</div>
+        <div class="ai-title"><span>✨</span> Образ от ARELEI</div>
+        <div class="ai-text">${text}</div>
+        <div class="ai-tags">
+          ${tags.map(t => `<span class="ai-tag">${t}</span>`).join("")}
         </div>
       `;
     }
 
-    overlay.innerHTML = `
-      <div class="onboarding-card">
-        <div class="onboarding-steps-dots">${dots}</div>
-        ${content}
-      </div>
-    `;
+    /* ---------- PRO ---------- */
 
-    const btnNext = document.getElementById("btnNextOnboarding");
-    const btnPrev = document.getElementById("btnPrevOnboarding");
-    const btnFinish = document.getElementById("btnFinishOnboarding");
+    function renderPro(root) {
+      root.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><span>💎</span> PRO-подписка ARELEI</div>
+              <div class="card-sub">Расширенный ИИ-стилист и бьюти-функции</div>
+            </div>
+          </div>
+          <div class="ai-block">
+            <div class="ai-title"><span>📦</span> Тариф «ARELEI PRO»</div>
+            <div class="ai-text">
+              <b>399 ₽ в месяц</b> — доступ к анализу цветотипа, подбору макияжа и причёски,
+              расширенному планировщику образов и дополнительным скидкам на маркетплейсах.
+            </div>
+            <div class="ai-tags">
+              <span class="ai-tag">анализ внешности</span>
+              <span class="ai-tag">AR-бьюти</span>
+              <span class="ai-tag">скидки партнёров</span>
+            </div>
+          </div>
+          <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="startProPayment()">
+              Оформить PRO 💳
+            </button>
+            <button class="btn btn-ghost btn-sm" onclick="setTab('home')">
+              На главную
+            </button>
+          </div>
+          <div class="notes">
+            Для реальной оплаты нужно использовать Telegram Stars и сервер бота.
+            Сейчас кнопка просто переключит статус в режиме демонстрации.
+          </div>
+        </div>
+      `;
+    }
 
-    if (btnNext) btnNext.addEventListener("click", () => {
-      if (onboardingStep === 1) {
-        const tg = document.getElementById("obTelegram").value.trim();
-        if (tg) state.profile.telegram = tg.startsWith("@") ? tg : "@" + tg;
-      }
-      if (onboardingStep === 2) {
-        const ageVal = document.getElementById("obAge").value.trim();
-        const cityVal = document.getElementById("obCity").value.trim();
-        if (ageVal) state.profile.age = ageVal;
-        if (cityVal) state.profile.city = cityVal;
-      }
-      onboardingStep = Math.min(3, onboardingStep + 1);
-      updateOnboarding();
-    });
-
-    if (btnPrev) btnPrev.addEventListener("click", () => {
-      onboardingStep = Math.max(1, onboardingStep - 1);
-      updateOnboarding();
-    });
-
-    if (btnFinish) btnFinish.addEventListener("click", () => {
-      const radiosWrap = document.getElementById("obPurposeRadios");
-      if (radiosWrap) {
-        const active = radiosWrap.querySelector(".radio-pill.active");
-        if (active) state.profile.purpose = active.dataset.value;
-      }
+    function startProPayment() {
+      state.pro = !state.pro;
       saveState();
-      hideOnboarding();
-      render();
+      updateStatusBadge();
+      alert(
+        state.pro
+          ? "В демо-режиме PRO активирован. В реальном приложении здесь будет оплата через Telegram Stars."
+          : "PRO выключен."
+      );
+    }
+
+    function updateStatusBadge() {
+      const badge = document.getElementById("statusBadge");
+      if (state.pro) {
+        badge.innerHTML = '<div class="badge-dot"></div> PRO-подписка активна 💎';
+      } else {
+        badge.innerHTML =
+          '<div class="badge-dot"></div> Free-план · ИИ-стилист доступен бесплатно 🤖';
+      }
+    }
+
+    /* ---------- Telegram init ---------- */
+
+    function initTelegramUser() {
+      try {
+        if (window.Telegram && window.Telegram.WebApp) {
+          const data = window.Telegram.WebApp.initDataUnsafe;
+          if (data && data.user) {
+            const name =
+              data.user.first_name +
+              (data.user.last_name ? " " + data.user.last_name : "");
+            document.getElementById("tgName").textContent = name;
+            document.getElementById("tgAvatar").textContent =
+              (data.user.first_name || "A").charAt(0).toUpperCase();
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    /* ---------- START ---------- */
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadState();
+      updateStatusBadge();
+      initTelegramUser();
+      setTab("home");
     });
-
-    const radioWrap = document.getElementById("obPurposeRadios");
-    if (radioWrap) {
-      radioWrap.querySelectorAll(".radio-pill").forEach(pill => {
-        pill.addEventListener("click", () => {
-          radioWrap.querySelectorAll(".radio-pill").forEach(p => p.classList.remove("active"));
-          pill.classList.add("active");
-        });
-      });
-    }
-  }
-
-  // ---------- ИНИЦИАЛИЗАЦИЯ ----------
-
-  document.addEventListener("DOMContentLoaded", () => {
-    loadState();
-    render();
-    if (!state.profile.telegram) {
-      showOnboarding();
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
